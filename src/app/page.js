@@ -261,5 +261,5 @@ const formFields = {
 export default withAuthenticator(Home, {
  components,
  formFields,
- socialProviders: ['google', 'facebook']
+ socialProviders: ['google']
 });
