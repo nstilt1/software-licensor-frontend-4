@@ -1,14 +1,35 @@
 "use client";
 
 import '@aws-amplify/ui-react/styles.css';
-import Image from "next/image";
 import { Amplify } from 'aws-amplify';
-import { Authenticator, useTheme, View, Heading, Text, useAuthenticator } from "@aws-amplify/ui-react";
-import awsExports from "@/aws-exports";
-import { Button } from "@/components/ui/button";
+import { withAuthenticator, Authenticator, useTheme, View, Heading, Text, useAuthenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import Image from "next/image";
+import awsExports from '../aws-exports';
 import Next from '../../public/next.svg';
+import { Button } from '@/components/ui/button';
 
-Amplify.configure(awsExports);
+Amplify.configure({
+  ...awsExports,
+  Auth: {
+    identityPoolId: 'us-east-1:3ed63a56-1dab-48b9-a9b5-e78bc8da4148',
+    region: 'us-east-1',
+    userPoolId: 'us-east-1_W1KoU5K2W',
+  }
+});
+
+const Home = () => {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  
+  return (
+    <div>
+        <main>
+          <Button onclick={signOut}>Sign out</Button>
+          <h1>Hello {user?.username}</h1>
+          <Button>Create store</Button>
+        </main>
+    </div>
+  );
+}
 
 const components = {
   Header() {
@@ -237,12 +258,8 @@ const formFields = {
   },
 };
 
-export default function Home() {
-  return (
-    <main>
-      <Authenticator formFields={formFields} components={components} socialProviders={['google']}>
-        <p>Hello world!</p>
-      </Authenticator>
-    </main>
-  );
-}
+export default withAuthenticator(Home, {
+ components,
+ formFields,
+ socialProviders: ['google', 'facebook']
+});
