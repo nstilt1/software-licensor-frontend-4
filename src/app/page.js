@@ -2,7 +2,7 @@
 
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify';
-import { withAuthenticator, Authenticator, useTheme, View, Heading, Text, useAuthenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator, Authenticator, useTheme, View, Heading, Text, useAuthenticator } from "@aws-amplify/ui-react";
 import Image from "next/image";
 import awsExports from '../aws-exports';
 import Next from '../../public/next.svg';
