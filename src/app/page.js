@@ -23,8 +23,13 @@ const Home = () => {
   return (
     <div>
         <main>
-          <Button onclick={signOut}>Sign out</Button>
-          <h1>Hello {user?.username}</h1>
+          <Button onClick={signOut}>Sign out</Button>
+          <h1>Hello {user?.userId}</h1>
+          {() => {
+            console.log(user);
+            console.log(user.userId);
+            console.log(user.username);
+          }}
           <Button>Create store</Button>
         </main>
     </div>
