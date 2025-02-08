@@ -183,7 +183,6 @@ const StoresTable = (user) => {
                             <DialogDescription>Create a store and an API key here. A single API key can only be used with a single store.</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={createStore}>
-                            <div className="grid gap-4 py-4">
                                     <TextInput 
                                         onChange={setIdPrefix}
                                         id="idPrefix"
