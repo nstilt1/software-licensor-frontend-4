@@ -10,15 +10,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Auth } from 'aws-amplify';
+import { Amplify } from "aws-amplify";
 import { AuthUser } from "aws-amplify/auth";
-import protobuf from "protobufjs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import TextInput from "./TextInput";
-
-const protobuf = require('protobufjs');
+import { Button } from "./ui/button";
 
 const StoresTable = (user) => {
     // create_store parameters
@@ -44,65 +42,76 @@ const StoresTable = (user) => {
         event.preventDefault();
 
         try {
-            Auth.currentSession().then(async res => {
-                let jwtToken = res.getIdToken().getJwtToken();
+            const user = await Amplify.Auth.getUser();
 
-                // const root = await protobuf.load('/create_store.proto');
-                // const CreateStoreRequest = root.lookupType("CreateStoreRequest");
+            if (!user) {
+                throw new Error("Not authenticated");
+            }
 
-                const reqData = {
-                    id_prefix: idPrefix,
-                    contact_first_name: contactFirstName,
-                    contact_last_name: contactLastName,
-                    contact_email: contactEmail,
-                    discord_username: discordUsername,
-                    country: country,
-                    store_name: storeName,
-                    store_url: storeUrl
-                };
+            const signInUserSession = user.signInUserSession;
+            const idToken = signInUserSession?.idToken;
 
-                // const errMsg = CreateStoreRequest.verify(reqData);
-                // if (errMsg) {
-                //     throw Error(errMsg);
-                // }
+            if (!idToken) {
+                throw new Error("No token found");
+            }
 
-                // const message = CreateStoreRequest.create(reqData);
-                // const buffer = CreateStoreRequest.encode(message).finish();
+            const token = idToken.token;
 
-                const response = await fetch("https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${jwtToken}`,
-                        "Content-type": "application/x-protobuf"
-                    },
-                    body: reqData
-                });
+            // const root = await protobuf.load('/create_store.proto');
+            // const CreateStoreRequest = root.lookupType("CreateStoreRequest");
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}\nmsg: ${response.statusText}`);
-                }
+            const reqData = {
+                id_prefix: idPrefix,
+                contact_first_name: contactFirstName,
+                contact_last_name: contactLastName,
+                contact_email: contactEmail,
+                discord_username: discordUsername,
+                country: country,
+                store_name: storeName,
+                store_url: storeUrl
+            };
 
-                let json = response.json();
-                const apiKey = json.api_key;
-                const configs = json.configs;
+            // const errMsg = CreateStoreRequest.verify(reqData);
+            // if (errMsg) {
+            //     throw Error(errMsg);
+            // }
 
-                const storeInfo = {
-                    api_key: apiKey,
-                    configs: configs,
-                    metrics: {}
-                };
+            // const message = CreateStoreRequest.create(reqData);
+            // const buffer = CreateStoreRequest.encode(message).finish();
 
-
-                const newKey = { [apiKey]: storeInfo };
-                setStoreData(previous => [...previous, newKey]);
-                
-
-                // const responseBuffer = await response.arrayBuffer();
-                // const CreateStoreResponse = root.lookupType("CreateStoreResponse");
-
-                // const decodedMessage = CreateStoreResponse.decode(responseBuffer);
-                // console.log(decodedMessage);
+            const response = await fetch("https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${jwtToken}`,
+                    "Content-type": "application/x-protobuf"
+                },
+                body: reqData
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}\nmsg: ${response.statusText}`);
+            }
+
+            let json = response.json();
+            const apiKey = json.api_key;
+            const configs = json.configs;
+
+            const storeInfo = {
+                api_key: apiKey,
+                configs: configs,
+                metrics: {}
+            };
+
+
+            const newKey = { [apiKey]: storeInfo };
+            setStoreData(previous => [...previous, newKey]);
+            
+
+            // const responseBuffer = await response.arrayBuffer();
+            // const CreateStoreResponse = root.lookupType("CreateStoreResponse");
+
+            // const decodedMessage = CreateStoreResponse.decode(responseBuffer);
+            // console.log(decodedMessage);
         } catch (error) {
             console.error("Error in createStore()", error);
         }
@@ -238,7 +247,6 @@ const StoresTable = (user) => {
                         </form>
                     </DialogContent>
                 </Dialog>
-                <Button>Create Store</Button>
             </CardFooter>
         </Card>
     );
