@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Amplify } from "aws-amplify";
-import { AuthUser } from "aws-amplify/auth";
+import { AuthUser, fetchAuthSession } from "aws-amplify/auth";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -42,20 +42,14 @@ const StoresTable = (user) => {
         event.preventDefault();
 
         try {
-            const user = await Amplify.Auth.getUser();
-
-            if (!user) {
-                throw new Error("Not authenticated");
-            }
-
-            const signInUserSession = user.signInUserSession;
-            const idToken = signInUserSession?.idToken;
+            const authSession = await fetchAuthSession();
+            const idToken = authSession?.tokens?.idToken;
 
             if (!idToken) {
-                throw new Error("No token found");
+                throw new Error("No idToken");
             }
 
-            const token = idToken.token;
+            const token = idToken.toString();
 
             // const root = await protobuf.load('/create_store.proto');
             // const CreateStoreRequest = root.lookupType("CreateStoreRequest");
