@@ -7,6 +7,19 @@ import Image from "next/image";
 import awsExports from '../aws-exports';
 import Next from '../../public/next.svg';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import StoresTable from '@/components/storesTable';
 
 Amplify.configure({
   ...awsExports,
@@ -23,13 +36,17 @@ const Home = () => {
   return (
     <div>
         <main>
+          <Tabs defaultValue="stores" className="w-[400px]">
+            <TabsList>
+              <TabsTrigger value="stores">Stores</TabsTrigger>
+              <TabsTrigger value="account">Account</TabsTrigger>
+            </TabsList>
+            <TabsContent value="stores">
+              <StoresTable user={user} />
+            </TabsContent>
+          </Tabs>
           <Button onClick={signOut}>Sign out</Button>
           <h1>Hello {user?.userId}</h1>
-          {() => {
-            console.log(user);
-            console.log(user.userId);
-            console.log(user.username);
-          }}
           <Button>Create store</Button>
         </main>
     </div>

@@ -7,14 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:proto:create_store": "npx pbjs -t static-module -w commonjs -o src/protos/create_store.js protos/create_store.proto",
-    "build:proto:get_metrics": "npx pbjs -t static-module -w commonjs -o src/protos/get_metrics.js protos/get_metrics.proto",
-    "build:proto:link_store": "npx pbjs -t static-module -w commonjs -o src/protos/link_store.js protos/link_store.proto",
-    "build:proto": "npm run build:proto:create_store && npm run build:proto:get_metrics && npm run build:proto:link_store"
+    "build:proto": "npx pbjs -t static-module -w commonjs --es6 --log_level debug -o compiled.js protos/create_store.proto protos/get_metrics.proto protos/link_store.proto"
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.4.1",
     "@aws-amplify/ui-react": "^6.9.1",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.2",
     "aws-amplify": "^6.12.3",
@@ -22,7 +21,6 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.473.0",
     "next": "14.2.23",
-    "pbjs": "^0.0.14",
     "protobufjs": "^7.4.0",
     "react": "^18",
     "react-dom": "^18",
@@ -32,6 +30,7 @@
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.2.23",
+    "pbjs": "^0.0.14",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
   }
