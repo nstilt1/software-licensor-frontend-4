@@ -184,63 +184,48 @@ const StoresTable = (user) => {
                         </DialogHeader>
                         <form onSubmit={createStore}>
                             <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-4 items-center gap-4">
                                     <TextInput 
                                         onChange={setIdPrefix}
                                         id="idPrefix"
                                         value={idPrefix}
                                         labelText="Enter your desired API Key prefix"
                                     />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
                                     <TextInput 
                                         onChange={setContactFirstName}
                                         id="contactFirstName"
                                         value={contactFirstName}
                                         labelText="Enter your first name"
                                     />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
                                     <TextInput 
                                         onChange={setContactLastName}
                                         id="contactLastName"
                                         value={contactLastName}
                                         labelText="Enter your last name"
                                     />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
                                     <TextInput 
                                         onChange={setDiscordUsername}
                                         id="discordUsername"
                                         value={discordUsername}
                                         labelText="Enter your discord username"
                                     />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
                                     <TextInput 
                                         onChange={setCountry}
                                         id="country"
                                         value={country}
                                         labelText="Enter your country"
                                     />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
                                     <TextInput 
                                         onChange={setStoreName}
                                         id="storeName"
                                         value={storeName}
                                         labelText="Enter your store's name"
                                     />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
                                     <TextInput 
                                         onChange={setStoreUrl}
                                         id="storeUrl"
                                         value={storeUrl}
                                         labelText="Enter your store's URL"
                                     />
-                                </div>
-                            </div>
                             <DialogFooter>
                                 <Button type="submit">Create Store</Button>
                             </DialogFooter>
