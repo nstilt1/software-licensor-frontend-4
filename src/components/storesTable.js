@@ -43,13 +43,14 @@ const StoresTable = (user) => {
 
         try {
             const authSession = await fetchAuthSession();
-            const idToken = authSession?.tokens?.accessToken;
+            const idToken = authSession?.tokens?.idToken;
 
             if (!idToken) {
                 throw new Error("No idToken");
             }
 
-            const token = idToken.toString();
+            const token = idToken?.toString();
+            console.log("Token: " + token);
 
             // const root = await protobuf.load('/create_store.proto');
             // const CreateStoreRequest = root.lookupType("CreateStoreRequest");
