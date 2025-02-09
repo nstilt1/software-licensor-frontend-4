@@ -60,13 +60,13 @@ const StoresTable = (user) => {
 
             debugLog("Token: " + token);
 
-            const response = await fetch("https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store", {
+            const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify(reqData)
+                body: JSON.stringify(obj)
             });
             // Add detailed error logging
             if (!response.ok) {
