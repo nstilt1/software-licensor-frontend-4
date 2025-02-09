@@ -79,7 +79,7 @@ const StoresTable = (user) => {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/x-protobuf"
                 },
-                body: reqData
+                body: JSON.stringify(reqData)
             });
 
             if (!response.ok) {
