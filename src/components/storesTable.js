@@ -240,6 +240,28 @@ const StoresTable = (user) => {
                         </form>
                     </DialogContent>
                 </Dialog>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="outline">Link Store</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                            <DialogTitle>Link Store</DialogTitle>
+                            <DialogDescription>Link a store manually. This needs to be removed!</DialogDescription>
+                        </DialogHeader>
+                        <form onSubmit={linkStore}>
+                            <TextInput 
+                                onChange={setStoreIdInput}
+                                id="storeIdInput"
+                                value={storeIdInput}
+                                labelText="Enter the store ID you wish to add to the dashboard"
+                            />
+                        </form>
+                        <DialogFooter>
+                            <Button type="submit">Link Store</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
             </CardFooter>
         </Card>
     );
