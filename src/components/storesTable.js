@@ -99,7 +99,7 @@ const StoresTable = (user) => {
                 throw new Error(`HTTP error! status: ${response.status}\nbody: ${errorText}`);
             }
 
-            let json = response.json();
+            let json = await response.json();
 
             debugLog(response);
             debugLog(json);
