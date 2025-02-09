@@ -5,6 +5,10 @@ import { ToastAction } from './ui/toast';
 const APIKeyDisplay = ({ apiKey }) => {
   const { toast } = useToast();
 
+  if (!apiKey) {
+    return <span>Undefined API Key</span>;
+  }
+
   // Create a formatted version with the first 8 characters, ellipsis, and last 4 characters.
   const formattedKey = `${apiKey.slice(0, 8)}...${apiKey.slice(-4)}`;
 
