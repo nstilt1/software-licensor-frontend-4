@@ -76,7 +76,7 @@ const StoresTable = (user) => {
             const response = await fetch("https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store", {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${jwtToken}`,
+                    "Authorization": `Bearer ${token}`,
                     "Content-type": "application/x-protobuf"
                 },
                 body: reqData
