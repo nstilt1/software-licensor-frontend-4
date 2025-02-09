@@ -83,9 +83,14 @@ const StoresTable = (user) => {
                 body: JSON.stringify(reqData)
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}\nmsg: ${response.statusText}`);
-            }
+            // Add detailed error logging
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Response status:', response.status);
+            console.error('Response headers:', Object.fromEntries(response.headers));
+            console.error('Response body:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}\nbody: ${errorText}`);
+        }
 
             let json = response.json();
             const apiKey = json.api_key;
@@ -108,7 +113,11 @@ const StoresTable = (user) => {
             // const decodedMessage = CreateStoreResponse.decode(responseBuffer);
             // console.log(decodedMessage);
         } catch (error) {
-            console.error("Error in createStore()", error);
+            console.error("Full error details:", {
+                message: error.message,
+                stack: error.stack,
+                cause: error.cause
+            });
         }
 
     }
