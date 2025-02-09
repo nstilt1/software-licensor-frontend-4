@@ -161,9 +161,9 @@ const StoresTable = (user) => {
                     <TableBody>
                         {storeData.map(storeItem => (
                             <TableRow key={storeItem.api_key}>
-                                {debugLog.log(storeData)}
-                                {debugLog.log(storeItem)}
-                                {debugLog.log(storeItem.api_key)}
+                                {debugLog(storeData)}
+                                {debugLog(storeItem)}
+                                {debugLog(storeItem.api_key)}
                                 <TableCell className="font-medium">{storeItem?.api_key}</TableCell>
                                 <TableCell>{storeItem?.metrics?.num_products ?? 0}</TableCell>
                                 <TableCell>{storeItem?.metrics?.num_licenses ?? 0}</TableCell>
