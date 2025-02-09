@@ -18,6 +18,12 @@ import { Input } from "./ui/input";
 import TextInput from "./TextInput";
 import { Button } from "./ui/button";
 
+function debugLog(text) {
+    if (true) {
+        console.log(text);
+    }
+}
+
 const StoresTable = (user) => {
     // create_store parameters
     const [idPrefix, setIdPrefix] = useLocalStorage("id_prefix", "");
@@ -28,13 +34,6 @@ const StoresTable = (user) => {
     const [country, setCountry] = useLocalStorage("country", "");
     const [storeName, setStoreName] = useLocalStorage("storeName", "");
     const [storeUrl, setStoreUrl] = useLocalStorage("storeUrl", "");
-
-    // easily enable/disable logging
-    const debugLog = (text) => {
-        if (true) {
-            console.log(text);
-        }
-    }
 
     const now = () => {
         const time = Math.floor(Date.now() / 1000);
