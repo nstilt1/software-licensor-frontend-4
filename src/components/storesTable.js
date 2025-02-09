@@ -17,6 +17,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import TextInput from "./TextInput";
 import { Button } from "./ui/button";
+import APIKeyDisplay from "./APIKeyDisplay";
 
 function debugLog(text) {
     if (true) {
@@ -170,7 +171,7 @@ const StoresTable = (user) => {
                                     {debugLog("storeItem.api_key = " + storeItem.api_key)}
                                     {debugLog("itemData = " + itemData)}
                                     {debugLog("itemData.api_key = " + itemData.api_key)}
-                                    <TableCell className="font-medium">{itemData?.api_key}</TableCell>
+                                    <TableCell className="font-medium"><APIKeyDisplay apiKey={itemData?.api_key} /></TableCell>
                                     <TableCell>{itemData?.metrics?.num_products ?? 0}</TableCell>
                                     <TableCell>{itemData?.metrics?.num_licenses ?? 0}</TableCell>
                                     <TableCell>{itemData?.metrics?.num_licensed_machines ?? 0}</TableCell>
