@@ -101,7 +101,7 @@ const StoresTable = (user) => {
                 store_url: storeUrl
             };
 
-            let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store");
+            let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store");
 
             const apiKey = json.api_key;
             const configs = json.configs;
@@ -135,7 +135,7 @@ const StoresTable = (user) => {
                 store_id: storeIdInput
             };
 
-            let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/link_store_admin");
+            let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/link_store_admin");
 
             const storeInfo = {
                 api_key: storeIdInput,
