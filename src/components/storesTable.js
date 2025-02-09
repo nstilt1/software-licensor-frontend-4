@@ -29,6 +29,13 @@ const StoresTable = (user) => {
     const [storeName, setStoreName] = useLocalStorage("storeName", "");
     const [storeUrl, setStoreUrl] = useLocalStorage("storeUrl", "");
 
+    // easily enable/disable logging
+    const debugLog = (text) => {
+        if (true) {
+            console.log(text);
+        }
+    }
+
     const now = () => {
         const time = Math.floor(Date.now() / 1000);
         return time;
@@ -84,17 +91,23 @@ const StoresTable = (user) => {
             });
 
             // Add detailed error logging
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Response status:', response.status);
-            console.error('Response headers:', Object.fromEntries(response.headers));
-            console.error('Response body:', errorText);
-            throw new Error(`HTTP error! status: ${response.status}\nbody: ${errorText}`);
-        }
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Response status:', response.status);
+                console.error('Response headers:', Object.fromEntries(response.headers));
+                console.error('Response body:', errorText);
+                throw new Error(`HTTP error! status: ${response.status}\nbody: ${errorText}`);
+            }
 
             let json = response.json();
+
+            debugLog(response);
+            debugLog(json);
+
             const apiKey = json.api_key;
             const configs = json.configs;
+
+            debugLog(apiKey);
 
             const storeInfo = {
                 api_key: apiKey,
@@ -149,6 +162,9 @@ const StoresTable = (user) => {
                     <TableBody>
                         {storeData.map(storeItem => (
                             <TableRow key={storeItem.api_key}>
+                                {debugLog.log(storeData)}
+                                {debugLog.log(storeItem)}
+                                {debugLog.log(storeItem.api_key)}
                                 <TableCell className="font-medium">{storeItem?.api_key}</TableCell>
                                 <TableCell>{storeItem?.metrics?.num_products ?? 0}</TableCell>
                                 <TableCell>{storeItem?.metrics?.num_licenses ?? 0}</TableCell>
