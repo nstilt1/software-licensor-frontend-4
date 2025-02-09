@@ -43,7 +43,7 @@ const StoresTable = (user) => {
 
         try {
             const authSession = await fetchAuthSession();
-            const idToken = authSession?.tokens?.idToken;
+            const idToken = authSession?.tokens?.accessToken;
 
             if (!idToken) {
                 throw new Error("No idToken");
@@ -77,7 +77,7 @@ const StoresTable = (user) => {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,
-                    "Content-type": "application/x-protobuf"
+                    "Content-type": "application/json"
                 },
                 body: JSON.stringify(reqData)
             });
