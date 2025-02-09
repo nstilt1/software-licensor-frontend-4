@@ -8,6 +8,8 @@ const TextInput = ({ value, onChange, id, labelText }) => {
     return (
         <div className="rounded-lg p-2">
         <div className="flex items-center border border-gray-300 rounded-md p-2">
+            
+            <label htmlFor={id}>{labelText}</label>
             <input
                 id={id}
                 type="text"
@@ -16,7 +18,6 @@ const TextInput = ({ value, onChange, id, labelText }) => {
                 value={value}
                 onChange={handleChange}
             />
-            <label htmlFor={id}>{labelText}</label>
         </div>
         </div>
     );

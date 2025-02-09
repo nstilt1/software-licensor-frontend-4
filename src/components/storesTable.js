@@ -28,26 +28,27 @@ function debugLog(text) {
 const StoresTable = (user) => {
     // create_store parameters
     const [idPrefix, setIdPrefix] = useLocalStorage("id_prefix", "");
-    const [contactFirstName, setContactFirstName] = useLocalStorage("contactFirstName", "");
-    const [contactLastName, setContactLastName] = useLocalStorage("contactLastName", "");
-    const [contactEmail, setContactEmail] = useLocalStorage("contactEmail", "");
-    const [discordUsername, setDiscordUsername] = useLocalStorage("discordUsername", "");
-    const [country, setCountry] = useLocalStorage("country", "");
-    const [storeName, setStoreName] = useLocalStorage("storeName", "");
-    const [storeUrl, setStoreUrl] = useLocalStorage("storeUrl", "");
+    const [contactFirstName, setContactFirstName] = useLocalStorage("contactFirstName", "Unknown");
+    const [contactLastName, setContactLastName] = useLocalStorage("contactLastName", "Unknown");
+    const [contactEmail, setContactEmail] = useLocalStorage("contactEmail", "Unknown");
+    const [discordUsername, setDiscordUsername] = useLocalStorage("discordUsername", "Unknown");
+    const [country, setCountry] = useLocalStorage("country", "Unknown");
+    const [storeName, setStoreName] = useLocalStorage("storeName", "Unknown");
+    const [storeUrl, setStoreUrl] = useLocalStorage("storeUrl", "Unknown");
+
+    // link_store parameters
+    const [storeIdInput, setStoreIdInput] = useLocalStorage("storeId", "");
 
     const now = () => {
         const time = Math.floor(Date.now() / 1000);
         return time;
     }
     const [lastMetricsFetch, setLastMetricsFetch] = useLocalStorage("lastMFetch", now());
-    // might need to change the default value to an empty protobuf message
+
     const [storeData, setStoreData] = useLocalStorage("storeData", []);
     const [totals, setTotals] = useLocalStorage("APITotals", {});
 
-    const createStore = async (event) => {
-        event.preventDefault();
-
+    const packRequest = async (obj, url) => {
         try {
             const authSession = await fetchAuthSession();
             const idToken = authSession?.tokens?.idToken;
@@ -55,13 +56,40 @@ const StoresTable = (user) => {
             if (!idToken) {
                 throw new Error("No idToken");
             }
+            const token = idToken.toString();
 
-            const token = idToken?.toString();
-            console.log("Token: " + token);
+            debugLog("Token: " + token);
 
-            // const root = await protobuf.load('/create_store.proto');
-            // const CreateStoreRequest = root.lookupType("CreateStoreRequest");
+            const response = await fetch("https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(reqData)
+            });
+            // Add detailed error logging
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Response status:', response.status);
+                console.error('Response headers:', Object.fromEntries(response.headers));
+                console.error('Response body:', errorText);
+                throw new Error(`HTTP error! status: ${response.status}\nbody: ${errorText}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Full error details:", {
+                message: error.message,
+                stack: error.stack,
+                cause: error.cause
+            });
+        }
+    };
 
+    const createStore = async (event) => {
+        event.preventDefault();
+
+        try {
             const reqData = {
                 id_prefix: idPrefix,
                 contact_first_name: contactFirstName,
@@ -73,36 +101,7 @@ const StoresTable = (user) => {
                 store_url: storeUrl
             };
 
-            // const errMsg = CreateStoreRequest.verify(reqData);
-            // if (errMsg) {
-            //     throw Error(errMsg);
-            // }
-
-            // const message = CreateStoreRequest.create(reqData);
-            // const buffer = CreateStoreRequest.encode(message).finish();
-
-            const response = await fetch("https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(reqData)
-            });
-
-            // Add detailed error logging
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Response status:', response.status);
-                console.error('Response headers:', Object.fromEntries(response.headers));
-                console.error('Response body:', errorText);
-                throw new Error(`HTTP error! status: ${response.status}\nbody: ${errorText}`);
-            }
-
-            let json = await response.json();
-
-            debugLog(response);
-            debugLog(json);
+            let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/create_store");
 
             const apiKey = json.api_key;
             const configs = json.configs;
@@ -119,12 +118,6 @@ const StoresTable = (user) => {
             const newKey = { [apiKey]: storeInfo };
             setStoreData(previous => [...previous, newKey]);
             
-
-            // const responseBuffer = await response.arrayBuffer();
-            // const CreateStoreResponse = root.lookupType("CreateStoreResponse");
-
-            // const decodedMessage = CreateStoreResponse.decode(responseBuffer);
-            // console.log(decodedMessage);
         } catch (error) {
             console.error("Full error details:", {
                 message: error.message,
@@ -134,6 +127,31 @@ const StoresTable = (user) => {
         }
 
     }
+
+    const linkStore = async (event) => {
+        event.preventDefault();
+        try {
+            const reqData = {
+                store_id: storeIdInput
+            };
+
+            let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/link_store_admin");
+
+            const storeInfo = {
+                api_key: storeIdInput,
+                configs: json.configs,
+                metrics: json.metrics,
+            }
+            const newKey = { [storeIdInput]: storeInfo };
+            setStoreData(previous => [...previous, newKey]);
+        } catch (error) {
+            console.error("Full error details:", {
+                message: error.message,
+                stack: error.stack,
+                cause: error.cause
+            });
+        }
+    };
 
     return (
         <Card>
@@ -215,42 +233,6 @@ const StoresTable = (user) => {
                                         id="idPrefix"
                                         value={idPrefix}
                                         labelText="Enter your desired API Key prefix"
-                                    />
-                                    <TextInput 
-                                        onChange={setContactFirstName}
-                                        id="contactFirstName"
-                                        value={contactFirstName}
-                                        labelText="Enter your first name"
-                                    />
-                                    <TextInput 
-                                        onChange={setContactLastName}
-                                        id="contactLastName"
-                                        value={contactLastName}
-                                        labelText="Enter your last name"
-                                    />
-                                    <TextInput 
-                                        onChange={setDiscordUsername}
-                                        id="discordUsername"
-                                        value={discordUsername}
-                                        labelText="Enter your discord username"
-                                    />
-                                    <TextInput 
-                                        onChange={setCountry}
-                                        id="country"
-                                        value={country}
-                                        labelText="Enter your country"
-                                    />
-                                    <TextInput 
-                                        onChange={setStoreName}
-                                        id="storeName"
-                                        value={storeName}
-                                        labelText="Enter your store's name"
-                                    />
-                                    <TextInput 
-                                        onChange={setStoreUrl}
-                                        id="storeUrl"
-                                        value={storeUrl}
-                                        labelText="Enter your store's URL"
                                     />
                             <DialogFooter>
                                 <Button type="submit">Create Store</Button>
