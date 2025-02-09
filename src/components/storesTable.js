@@ -159,22 +159,29 @@ const StoresTable = (user) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {storeData.map(storeItem => (
-                            <TableRow key={storeItem.api_key}>
-                                {debugLog(storeData)}
-                                {debugLog(storeItem)}
-                                {debugLog(storeItem.api_key)}
-                                <TableCell className="font-medium">{storeItem?.api_key}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_products ?? 0}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_licenses ?? 0}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_licensed_machines ?? 0}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_offline_machines ?? 0}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_online_machines ?? 0}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_license_activations ?? 0}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_license_regens ?? 0}</TableCell>
-                                <TableCell>{storeItem?.metrics?.num_machine_deactivations ?? 0}</TableCell>                                
-                            </TableRow>
-                        ))}
+                        {storeData.map((storeItem) => {
+                            const dynamicKey = Object.keys(storeItem);
+                            const itemData = storeItem[dynamicKey];
+
+                            return (
+                                <TableRow key={storeItem.api_key}>
+                                    {debugLog("storeData = " + storeData)}
+                                    {debugLog("storeItem = " + storeItem)}
+                                    {debugLog("storeItem.api_key = " + storeItem.api_key)}
+                                    {debugLog("itemData = " + itemData)}
+                                    {debugLog("itemData.api_key = " + itemData.api_key)}
+                                    <TableCell className="font-medium">{itemData?.api_key}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_products ?? 0}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_licenses ?? 0}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_licensed_machines ?? 0}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_offline_machines ?? 0}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_online_machines ?? 0}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_license_activations ?? 0}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_license_regens ?? 0}</TableCell>
+                                    <TableCell>{itemData?.metrics?.num_machine_deactivations ?? 0}</TableCell>                                
+                                </TableRow>
+                            );
+                        })}
                     </TableBody>
                     <TableFooter>
                         <TableRow>
