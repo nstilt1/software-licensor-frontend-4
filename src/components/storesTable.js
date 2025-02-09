@@ -256,10 +256,11 @@ const StoresTable = (user) => {
                                 value={storeIdInput}
                                 labelText="Enter the store ID you wish to add to the dashboard"
                             />
-                        </form>
                         <DialogFooter>
                             <Button type="submit">Link Store</Button>
                         </DialogFooter>
+                        
+                        </form>
                     </DialogContent>
                 </Dialog>
             </CardFooter>
