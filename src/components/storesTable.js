@@ -150,28 +150,28 @@ const StoresTable = (user) => {
                         {storeData.map(storeItem => (
                             <TableRow key={storeItem.api_key}>
                                 <TableCell className="font-medium">{storeItem.api_key}</TableCell>
-                                <TableCell>{storeItem.metrics.num_products ? storeItem.metrics.num_products : 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_licenses ? storeItem.metrics.num_licenses : 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_licensed_machines ? storeItem.metrics.num_licensed_machines : 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_offline_machines ? storeItem.metrics.num_offline_machines : 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_online_machines ? storeItem.metrics.num_online_machines : 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_license_activations ? storeItem.metrics.num_license_activations : 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_license_regens ? storeItem.metrics.num_license_regens : 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_machine_deactivations ? storeItem.metrics.num_machine_deactivations : 0}</TableCell>                                
+                                <TableCell>{storeItem.metrics.num_products ?? 0}</TableCell>
+                                <TableCell>{storeItem.metrics.num_licenses ?? 0}</TableCell>
+                                <TableCell>{storeItem.metrics.num_licensed_machines ?? 0}</TableCell>
+                                <TableCell>{storeItem.metrics.num_offline_machines ?? 0}</TableCell>
+                                <TableCell>{storeItem.metrics.num_online_machines ?? 0}</TableCell>
+                                <TableCell>{storeItem.metrics.num_license_activations ?? 0}</TableCell>
+                                <TableCell>{storeItem.metrics.num_license_regens ?? 0}</TableCell>
+                                <TableCell>{storeItem.metrics.num_machine_deactivations ?? 0}</TableCell>                                
                             </TableRow>
                         ))}
                     </TableBody>
                     <TableFooter>
                         <TableRow>
                             <TableCell>Totals</TableCell>
-                            <TableCell>{totals.num_products ? totals.num_products: 0}</TableCell>
-                            <TableCell>{totals.num_licenses ? totals.num_licenses: 0}</TableCell>
-                            <TableCell>{totals.num_licensed_machines ? totals.num_licensed_machines: 0}</TableCell>
-                            <TableCell>{totals.num_offline_machines ? totals.num_offline_machines: 0}</TableCell>
-                            <TableCell>{totals.num_online_machines ? totals.num_online_machines: 0}</TableCell>
-                            <TableCell>{totals.num_license_activations ? totals.num_license_activations: 0}</TableCell>
-                            <TableCell>{totals.num_license_regens ? totals.num_license_regens: 0}</TableCell>
-                            <TableCell>{totals.num_machine_deactivations ? totals.num_machine_deactivations: 0}</TableCell>   
+                            <TableCell>{totals.num_products ?? 0}</TableCell>
+                            <TableCell>{totals.num_licenses ?? 0}</TableCell>
+                            <TableCell>{totals.num_licensed_machines ?? 0}</TableCell>
+                            <TableCell>{totals.num_offline_machines ?? 0}</TableCell>
+                            <TableCell>{totals.num_online_machines ?? 0}</TableCell>
+                            <TableCell>{totals.num_license_activations ?? 0}</TableCell>
+                            <TableCell>{totals.num_license_regens ?? 0}</TableCell>
+                            <TableCell>{totals.num_machine_deactivations ?? 0}</TableCell>   
                         </TableRow>
                     </TableFooter>
                 </Table>
