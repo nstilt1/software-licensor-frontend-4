@@ -1,5 +1,6 @@
 import React from 'react';
-import { useToast } from '@/components/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from './ui/toast';
 
 const APIKeyDisplay = ({ apiKey }) => {
   const { toast } = useToast();
@@ -14,6 +15,9 @@ const APIKeyDisplay = ({ apiKey }) => {
         toast({
           title: 'Copied!',
           description: 'The full API key has been copied to your clipboard.',
+          action: (
+            <ToastAction altText="Okay">Okay</ToastAction>
+          )
         });
       })
       .catch((err) => {
@@ -21,6 +25,9 @@ const APIKeyDisplay = ({ apiKey }) => {
         toast({
           title: 'Error',
           description: 'Failed to copy API key. Please try again.',
+          action: (
+            <ToastAction altText="Okay">Okay</ToastAction>
+          )
         });
       });
   };
