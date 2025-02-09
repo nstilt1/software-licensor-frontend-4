@@ -149,15 +149,15 @@ const StoresTable = (user) => {
                     <TableBody>
                         {storeData.map(storeItem => (
                             <TableRow key={storeItem.api_key}>
-                                <TableCell className="font-medium">{storeItem.api_key}</TableCell>
-                                <TableCell>{storeItem.metrics.num_products ?? 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_licenses ?? 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_licensed_machines ?? 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_offline_machines ?? 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_online_machines ?? 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_license_activations ?? 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_license_regens ?? 0}</TableCell>
-                                <TableCell>{storeItem.metrics.num_machine_deactivations ?? 0}</TableCell>                                
+                                <TableCell className="font-medium">{storeItem?.api_key}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_products ?? 0}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_licenses ?? 0}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_licensed_machines ?? 0}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_offline_machines ?? 0}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_online_machines ?? 0}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_license_activations ?? 0}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_license_regens ?? 0}</TableCell>
+                                <TableCell>{storeItem?.metrics?.num_machine_deactivations ?? 0}</TableCell>                                
                             </TableRow>
                         ))}
                     </TableBody>
