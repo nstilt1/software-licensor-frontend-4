@@ -18,6 +18,7 @@ import { Input } from "./ui/input";
 import TextInput from "./TextInput";
 import { Button } from "./ui/button";
 import APIKeyDisplay from "./APIKeyDisplay";
+import { useEffect } from "react";
 
 function debugLog(text) {
     if (true) {
@@ -47,6 +48,14 @@ const StoresTable = (user) => {
 
     const [storeData, setStoreData] = useLocalStorage("storeData", []);
     const [totals, setTotals] = useLocalStorage("APITotals", {});
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            updateMetics();
+        }, 2000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     const packRequest = async (obj, url) => {
         try {
@@ -128,11 +137,14 @@ const StoresTable = (user) => {
 
     }
 
-    const linkStore = async (event) => {
+    const updateSettings = async (event) => {
         event.preventDefault();
         try {
             const reqData = {
-                store_id: storeIdInput
+                store_id: storeIdInput,
+                configs: {
+
+                }
             };
 
             let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/link_store_admin");
@@ -152,6 +164,28 @@ const StoresTable = (user) => {
             });
         }
     };
+
+    const updateMetics = async (/*event*/) => {
+        // event.preventDefault();
+        if (lastMetricsFetch + (60*60*4) > now()) {
+            debugLog("")
+            return;
+        }
+        try {
+            const reqData = {
+                message: "Hi"
+            };
+            let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/get_metrics");
+            setStoreData(json);
+            setLastMetricsFetch(now());
+        } catch (error) {
+            console.error("Full error details:", {
+                message: error.message,
+                stack: error.stack,
+                cause: error.cause
+            });
+        }
+    }
 
     return (
         <Card>
@@ -240,29 +274,9 @@ const StoresTable = (user) => {
                         </form>
                     </DialogContent>
                 </Dialog>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button variant="outline">Link Store</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                            <DialogTitle>Link Store</DialogTitle>
-                            <DialogDescription>Link a store manually. This needs to be removed!</DialogDescription>
-                        </DialogHeader>
-                        <form onSubmit={linkStore}>
-                            <TextInput 
-                                onChange={setStoreIdInput}
-                                id="storeIdInput"
-                                value={storeIdInput}
-                                labelText="Enter the store ID you wish to add to the dashboard"
-                            />
-                        <DialogFooter>
-                            <Button type="submit">Link Store</Button>
-                        </DialogFooter>
-                        
-                        </form>
-                    </DialogContent>
-                </Dialog>
+                
+                {}
+                
             </CardFooter>
         </Card>
     );
