@@ -19,7 +19,8 @@ import TextInput from "./TextInput";
 import { Button } from "./ui/button";
 import APIKeyDisplay from "./APIKeyDisplay";
 import { useEffect } from "react";
-
+import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from './ui/toast';
 function debugLog(text) {
     if (true) {
         console.log(text);
@@ -27,6 +28,7 @@ function debugLog(text) {
 }
 
 const StoresTable = (user) => {
+    const { toast } = useToast();
     // create_store parameters
     const [idPrefix, setIdPrefix] = useLocalStorage("id_prefix", "");
     const [contactFirstName, setContactFirstName] = useLocalStorage("contactFirstName", "Unknown");
@@ -280,7 +282,7 @@ const StoresTable = (user) => {
                         </form>
                     </DialogContent>
                 </Dialog>
-                <Button variant="outline" onClick={updateMetics}>Refresh Metrics</Button>
+                <Button disabled={lastMetricsFetch + (60*60*4) > now()} variant="outline" onClick={updateMetics}>Refresh Table</Button>
                 
             </CardFooter>
         </Card>
