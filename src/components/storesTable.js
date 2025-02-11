@@ -44,18 +44,18 @@ const StoresTable = (user) => {
         const time = Math.floor(Date.now() / 1000);
         return time;
     }
-    const [lastMetricsFetch, setLastMetricsFetch] = useLocalStorage("lastMFetch", now());
+    const [lastMetricsFetch, setLastMetricsFetch] = useLocalStorage("lastMFetch", 0);
 
     const [storeData, setStoreData] = useLocalStorage("storeData", []);
     const [totals, setTotals] = useLocalStorage("APITotals", {});
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            updateMetics();
-        }, 2000);
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         updateMetics();
+    //     }, 2000);
 
-        return () => clearInterval(intervalId);
-    }, []);
+    //     return () => clearInterval(intervalId);
+    // }, []);
 
     const packRequest = async (obj, url) => {
         try {
@@ -165,10 +165,9 @@ const StoresTable = (user) => {
         }
     };
 
-    const updateMetics = async (/*event*/) => {
-        // event.preventDefault();
-        let isLastFetchDefined = lastMetricsFetch != null && lastMetricsFetch != undefined;
-        if (lastMetricsFetch + (60*60*4) > now() && isLastFetchDefined) {
+    const updateMetics = async (event) => {
+        event.preventDefault();
+        if (lastMetricsFetch && lastMetricsFetch + (60*60*4) > now()) {
             debugLog("Last metrics fetch was too recent")
             return;
         }
@@ -276,8 +275,7 @@ const StoresTable = (user) => {
                         </form>
                     </DialogContent>
                 </Dialog>
-                
-                {}
+                <Button variant="outline" onClick={updateMetics}>Refresh Metrics</Button>
                 
             </CardFooter>
         </Card>
