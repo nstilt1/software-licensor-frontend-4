@@ -167,7 +167,8 @@ const StoresTable = (user) => {
 
     const updateMetics = async (/*event*/) => {
         // event.preventDefault();
-        if ((lastMetricsFetch ?? (now() * 0.5)) + (60*60*4) > now()) {
+        let isLastFetchDefined = lastMetricsFetch != null && lastMetricsFetch != undefined;
+        if (lastMetricsFetch + (60*60*4) > now() && isLastFetchDefined) {
             debugLog("Last metrics fetch was too recent")
             return;
         }
