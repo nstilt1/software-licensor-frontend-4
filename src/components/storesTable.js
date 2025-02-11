@@ -175,7 +175,8 @@ const StoresTable = (user) => {
             const reqData = {
                 message: "Hi"
             };
-            let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/get_metrics");
+            let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/get_metrics");
+            debugLog("response json: " + json);
             setStoreData(json.store_data);
             setTotals(json.totals);
             setLastMetricsFetch(now());
