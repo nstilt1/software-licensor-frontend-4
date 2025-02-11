@@ -176,7 +176,8 @@ const StoresTable = (user) => {
                 message: "Hi"
             };
             let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/get_metrics");
-            setStoreData(json);
+            setStoreData(json.store_data);
+            setTotals(json.totals);
             setLastMetricsFetch(now());
             debugLog("updated metrics");
         } catch (error) {
