@@ -167,8 +167,8 @@ const StoresTable = (user) => {
 
     const updateMetics = async (/*event*/) => {
         // event.preventDefault();
-        if (lastMetricsFetch + (60*60*4) > now()) {
-            debugLog("")
+        if ((lastMetricsFetch ?? (now() * 0.5)) + (60*60*4) > now()) {
+            debugLog("Last metrics fetch was too recent")
             return;
         }
         try {
@@ -178,6 +178,7 @@ const StoresTable = (user) => {
             let json = packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/get_metrics");
             setStoreData(json);
             setLastMetricsFetch(now());
+            debugLog("updated metrics");
         } catch (error) {
             console.error("Full error details:", {
                 message: error.message,
