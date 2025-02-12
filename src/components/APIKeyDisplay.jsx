@@ -161,7 +161,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Frequency</TableCell>
                                             <TableCell>{configs?.offline_license_frequency_hours ?? "Not set"}</TableCell>
                                             <TableCell>Hours</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setOLFH(e.target.value)} value={OLFH} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setOLFH(Number(e.target.value))} value={OLFH} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
@@ -177,7 +177,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Expiration</TableCell>
                                             <TableCell>{configs?.perpetual_license_expiration_days ?? "Not set"}</TableCell>
                                             <TableCell>Days</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setPLED(e.target.value)} value={PLED} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setPLED(Number(e.target.value))} value={PLED} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
@@ -193,7 +193,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Frequency</TableCell>
                                             <TableCell>{configs?.perpetual_license_frequency_hours ?? "Not set"}</TableCell>
                                             <TableCell>Hours</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setPLFH(e.target.value)} value={PLFH} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setPLFH(Number(e.target.value))} value={PLFH} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
@@ -209,7 +209,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Expiration</TableCell>
                                             <TableCell>{configs?.subscription_license_expiration_days ?? "Not set"}</TableCell>
                                             <TableCell>Days</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setSLED(e.target.value)} value={SLED} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setSLED(Number(e.target.value))} value={SLED} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
@@ -225,7 +225,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Expiration Leniency</TableCell>
                                             <TableCell>{configs?.subscription_license_expiration_leniency_hours ?? "Not set"}</TableCell>
                                             <TableCell>Hours</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setSLELH(e.target.value)} value={SLELH} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setSLELH(Number(e.target.value))} value={SLELH} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
@@ -255,7 +255,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Frequency</TableCell>
                                             <TableCell>{configs?.subscription_license_frequency_hours ?? "Not set"}</TableCell>
                                             <TableCell>Hours</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setSLFH(e.target.value)} value={SLFH} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setSLFH(Number(e.target.value))} value={SLFH} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
@@ -271,7 +271,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Expiration</TableCell>
                                             <TableCell>{configs?.trial_license_expiration_days ?? "Not set"}</TableCell>
                                             <TableCell>Days</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setTLED(e.target.value)} value={TLED} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setTLED(Number(e.target.value))} value={TLED} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
@@ -287,7 +287,7 @@ const APIKeyDisplay = ({
                                             <TableCell>Frequency</TableCell>
                                             <TableCell>{configs?.trial_license_frequency_hours ?? "Not set"}</TableCell>
                                             <TableCell>Hours</TableCell>
-                                            <TableCell><input type="number" onChange={(e) => setTLFH(e.target.value)} value={TLFH} /></TableCell>
+                                            <TableCell><input type="number" onChange={(e) => setTLFH(Number(e.target.value))} value={TLFH} /></TableCell>
                                         </TableRow>
                                     </TooltipTrigger>
                                     <TooltipContent className="max-w-[300px] whitespace-normal">
