@@ -34,10 +34,10 @@ const Home = () => {
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   
   return (
-    <div>
+    <div className='flex justify-center h-screen p-40'>
         <main>
-          <Tabs defaultValue="stores" className="w-[400px]">
-            <TabsList>
+          <Tabs defaultValue="stores">
+            <TabsList className='flex items-center justify-center'>
               <TabsTrigger value="stores">Stores</TabsTrigger>
               <TabsTrigger value="account">Account</TabsTrigger>
             </TabsList>
