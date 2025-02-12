@@ -164,10 +164,11 @@ const StoresTable = (user) => {
 
             let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/link_store_admin");
 
+            const currentStore = storeData.find(item => Object.keys(item)[0] === storeIdInput);
             const storeInfo = {
                 api_key: storeIdInput,
                 configs: json.configs,
-                metrics: storeData[storeIdInput].metrics,
+                metrics: currentStore[storeIdInput].metrics,
             }
             const newKey = { [storeIdInput]: storeInfo };
             setStoreData((previous) => {
