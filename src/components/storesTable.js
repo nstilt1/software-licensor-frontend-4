@@ -162,7 +162,7 @@ const StoresTable = (user) => {
                 }
             };
 
-            let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/link_store_admin");
+            let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/update_settings");
 
             const currentStore = storeData.find(item => Object.keys(item)[0] === storeIdInput);
             const storeInfo = {
