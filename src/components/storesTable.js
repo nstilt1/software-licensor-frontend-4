@@ -250,6 +250,7 @@ const StoresTable = (user) => {
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">API Key</TableHead>
+                            <TableHead>Linked</TableHead>
                             <TableHead># of Products</TableHead>
                             <TableHead># of Licenses</TableHead>
                             <TableHead># of Licensed Machines</TableHead>
@@ -287,6 +288,7 @@ const StoresTable = (user) => {
                                             TLFH={TLFH} setTLFH={setTLFH}
                                         />
                                     </TableCell>
+                                    <TableCell>{itemData?.linked ? "true" : "false"}</TableCell>
                                     <TableCell>{itemData?.metrics?.num_products ?? 0}</TableCell>
                                     <TableCell>{itemData?.metrics?.num_licenses ?? 0}</TableCell>
                                     <TableCell>{itemData?.metrics?.num_licensed_machines ?? 0}</TableCell>
@@ -302,6 +304,7 @@ const StoresTable = (user) => {
                     <TableFooter>
                         <TableRow>
                             <TableCell>Totals</TableCell>
+                            <TableCell></TableCell>
                             <TableCell>{totals.num_products ?? 0}</TableCell>
                             <TableCell>{totals.num_licenses ?? 0}</TableCell>
                             <TableCell>{totals.num_licensed_machines ?? 0}</TableCell>
