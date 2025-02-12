@@ -1,8 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from './ui/toast';
+import {
+    ContextMenu,
+    ContextMenuCheckboxItem,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuLabel,
+    ContextMenuRadioGroup,
+    ContextMenuRadioItem,
+    ContextMenuSeparator,
+    ContextMenuShortcut,
+    ContextMenuSub,
+    ContextMenuSubContent,
+    ContextMenuSubTrigger,
+    ContextMenuTrigger,
+  } from "@/components/ui/context-menu";
 
-const APIKeyDisplay = ({ apiKey }) => {
+  import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./ui/dialog";
+
+import { Button } from "@/components/ui/button";
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+  } from "@/components/ui/tooltip";
+
+import {
+Table,
+TableBody,
+TableCaption,
+TableCell,
+TableFooter,
+TableHead,
+TableHeader,
+TableRow,
+} from "@/components/ui/table";
+
+const FrequencyTooltip = () => {
+    return (
+        <p>
+            The frequency dictates the minimum amount of time that must pass 
+            before a client will try to reconnect with the Service to check 
+            on the status of their license(s). This is important in the event 
+            that a user regenerates their license code or refunds a purchase: 
+            more frequent checks can disable the machine&apos;s license sooner... 
+            if it is connected to the internet and makes the API request.
+        </p>
+    );
+}
+
+const ExpirationTooltip = () => {
+    return (
+    <p>
+        The expiration period determines how long a client can go 
+        on for without contacting the service. Many end-users would 
+        prefer for this to be a long period of time, and the expiration 
+        is always reset each time the client connects.
+    </p>
+    );
+}
+
+const APIKeyDisplay = ({ 
+    apiKey, 
+    configs,
+    updateSettings,
+    OLFH, setOLFH,
+    PLED, setPLED,
+    PLFH, setPLFH,
+    SLED, setSLED,
+    SLELH, setSLELH,
+    SLFH, setSLFH,
+    TLED, setTLED,
+    TLFH, setTLFH
+}) => {
+    const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
   if (!apiKey) {
@@ -37,13 +111,209 @@ const APIKeyDisplay = ({ apiKey }) => {
   };
 
   return (
-    <span
-      onClick={copyToClipboard}
-      style={{ cursor: 'pointer', userSelect: 'none' }}
-      title="Click to copy full API key"
-    >
-      {formattedKey}
-    </span>
+    <>
+    <ContextMenu>
+        <ContextMenuTrigger className="flex items-center justify-center rounded-md border text-sm">
+            <span
+                onClick={copyToClipboard}
+                style={{ cursor: 'pointer', userSelect: 'none' }}
+                title="Click to copy full API key"
+                >
+                {formattedKey}
+            </span>
+        </ContextMenuTrigger>
+        <ContextMenuContent className="w-64">
+            <ContextMenuItem inset onSelect={() => setTimeout(() => setOpen(true), 0)}>
+                Update Settings
+            </ContextMenuItem>
+            
+        </ContextMenuContent>
+    </ContextMenu>
+
+    {/* Render the dialog outside of the context menu */}
+    {open && (<Dialog open={open} onOpenChange={setOpen}>
+        <DialogPortal>
+            <DialogOverlay />
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Update Store Settings</DialogTitle>
+                    <DialogDescription>
+                        
+                    </DialogDescription>
+                </DialogHeader>
+                <div className='dialog-body'>
+                    <Table>
+                        <TableHeader>
+                            <TableRow key="0">
+                                <TableHead className="w-[100px]">License Type</TableHead>
+                                <TableHead>Setting</TableHead>
+                                <TableHead>Current Value</TableHead>
+                                <TableHead>Unit</TableHead>
+                                <TableHead>Proposed Value</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="1">
+                                            <TableCell>Offline</TableCell>
+                                            <TableCell>Frequency</TableCell>
+                                            <TableCell>{configs?.offline_license_frequency_hours ?? "Not set"}</TableCell>
+                                            <TableCell>Hours</TableCell>
+                                            <TableCell><input type="number" onChange={setOLFH} value={OLFH} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <FrequencyTooltip />
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="2">
+                                            <TableCell>Perpetual</TableCell>
+                                            <TableCell>Expiration</TableCell>
+                                            <TableCell>{configs?.perpetual_license_expiration_days ?? "Not set"}</TableCell>
+                                            <TableCell>Days</TableCell>
+                                            <TableCell><input type="number" onChange={setPLED} value={PLED} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <ExpirationTooltip />
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="3">
+                                            <TableCell>Perpetual</TableCell>
+                                            <TableCell>Frequency</TableCell>
+                                            <TableCell>{configs?.perpetual_license_frequency_hours ?? "Not set"}</TableCell>
+                                            <TableCell>Hours</TableCell>
+                                            <TableCell><input type="number" onChange={setPLFH} value={PLFH} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <FrequencyTooltip />
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="4">
+                                            <TableCell>Subscription</TableCell>
+                                            <TableCell>Expiration</TableCell>
+                                            <TableCell>{configs?.subscription_license_expiration_days ?? "Not set"}</TableCell>
+                                            <TableCell>Days</TableCell>
+                                            <TableCell><input type="number" onChange={setSLED} value={SLED} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <ExpirationTooltip />
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="5">
+                                            <TableCell>Subscription</TableCell>
+                                            <TableCell>Expiration Leniency</TableCell>
+                                            <TableCell>{configs?.subscription_license_expiration_leniency_hours ?? "Not set"}</TableCell>
+                                            <TableCell>Hours</TableCell>
+                                            <TableCell><input type="number" onChange={setSLELH} value={SLELH} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <p>
+                                            The expiration leniency for subscriptions adds this amount 
+                                            of time to the expiration period. This parameter can help 
+                                            ensure that subscription licenses continue to function 
+                                            even after a subscription period ends. Don&apos;t worry, the 
+                                            client will still try to connect with the Service after the 
+                                            period ends, so feel free to set this value to a week.
+                                        </p>
+                                        <p>
+                                            Also, don&apos;t over-think this parameter much because you will 
+                                            still need to implement subscription purchases and renewals, 
+                                            integrating with the Software Licensor backend. Subscriptions 
+                                            aren&apos;t fully implemented due to the WooCommerce Subscriptions 
+                                            require a subscription... so it is not fully implemented.
+                                        </p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="6">
+                                            <TableCell>Subscription</TableCell>
+                                            <TableCell>Frequency</TableCell>
+                                            <TableCell>{configs?.subscription_license_frequency_hours ?? "Not set"}</TableCell>
+                                            <TableCell>Hours</TableCell>
+                                            <TableCell><input type="number" onChange={setSLFH} value={SLFH} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <FrequencyTooltip />
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="7">
+                                            <TableCell>Trial</TableCell>
+                                            <TableCell>Expiration</TableCell>
+                                            <TableCell>{configs?.trial_license_expiration_days ?? "Not set"}</TableCell>
+                                            <TableCell>Days</TableCell>
+                                            <TableCell><input type="number" onChange={setTLED} value={TLED} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <ExpirationTooltip />
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <TableRow key="8">
+                                            <TableCell>Trial</TableCell>
+                                            <TableCell>Frequency</TableCell>
+                                            <TableCell>{configs?.trial_license_frequency_hours ?? "Not set"}</TableCell>
+                                            <TableCell>Hours</TableCell>
+                                            <TableCell><input type="number" onChange={setTLFH} value={TLFH} /></TableCell>
+                                        </TableRow>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] whitespace-normal">
+                                        <FrequencyTooltip />
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </TableBody>
+                    </Table>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" onClick={(event) => {
+                        event.preventDefault();
+                        setOpen(false);
+                    }}>Close</Button>
+                    <Button type="submit" onClick={(event) => {
+                        event.preventDefault();
+                        updateSettings(apiKey);
+                    }}>Update Settings</Button>
+                </DialogFooter>
+            </DialogContent>
+        </DialogPortal>
+            
+    </Dialog>
+    )}
+    </>
   );
 };
 

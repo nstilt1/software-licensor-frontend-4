@@ -39,8 +39,15 @@ const StoresTable = (user) => {
     const [storeName, setStoreName] = useLocalStorage("storeName", "Unknown");
     const [storeUrl, setStoreUrl] = useLocalStorage("storeUrl", "Unknown");
 
-    // link_store parameters
-    const [storeIdInput, setStoreIdInput] = useLocalStorage("storeId", "");
+    // update_settings parameters
+    const [OLFH, setOLFH] = useLocalStorage("OLFH", 1000);
+    const [PLED, setPLED] = useLocalStorage("PLED", 1000);
+    const [PLFH, setPLFH] = useLocalStorage("PLFH", 1000);
+    const [SLED, setSLED] = useLocalStorage("SLED", 1000);
+    const [SLELH, setSLELH] = useLocalStorage("SLELH", 1000);
+    const [SLFH, setSLFH] = useLocalStorage("SLFH", 1000);
+    const [TLED, setTLED] = useLocalStorage("TLED", 1000);
+    const [TLFH, setTLFH] = useLocalStorage("TLFH", 1000);
 
     const now = () => {
         const time = Math.floor(Date.now() / 1000);
@@ -139,13 +146,19 @@ const StoresTable = (user) => {
 
     }
 
-    const updateSettings = async (event) => {
-        event.preventDefault();
+    const updateSettings = async (storeIdInput) => {
         try {
             const reqData = {
                 store_id: storeIdInput,
                 configs: {
-
+                    offline_license_frequency_hours: OLFH,
+                    perpetual_license_expiration_days: PLED,
+                    perpetual_license_frequency_hours: PLFH,
+                    subscription_license_expiration_days: SLED,
+                    subscription_license_expiration_leniency_hours: SLELH,
+                    subscription_license_frequency_hours: SLFH,
+                    trial_license_expiration_days: TLED,
+                    trial_license_frequency_hours: TLFH,
                 }
             };
 
@@ -154,10 +167,21 @@ const StoresTable = (user) => {
             const storeInfo = {
                 api_key: storeIdInput,
                 configs: json.configs,
-                metrics: json.metrics,
+                metrics: storeData[storeIdInput].metrics,
             }
             const newKey = { [storeIdInput]: storeInfo };
-            setStoreData(previous => [...previous, newKey]);
+            setStoreData((previous) => {
+                const index = previous.findIndex(item => Object.keys(item)[0] == storeIdInput);
+                if (index !== -1) {
+                    // store id was found
+                    return previous.map((item, i) => 
+                        i === index ? { [storeIdInput]: storeInfo } : item
+                    );
+                }
+
+                // not found
+                debugLog("Store id was not found in the array");
+            });
         } catch (error) {
             console.error("Full error details:", {
                 message: error.message,
@@ -200,12 +224,14 @@ const StoresTable = (user) => {
             <CardHeader>
                 <CardTitle>Stores and API Usage</CardTitle>
                 <CardDescription>
-                    View your stores and their API usage.
+                    View your stores and their API usage. You can have up to 10 API Keys. 
+                    You cannot delete them, and you can only link them once—so only make 
+                    as many as you need.
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
                 <Table>
-                    <TableCaption>Your stores and their API usage</TableCaption>
+                    <TableCaption>Your stores and their API usage.</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">API Key</TableHead>
@@ -231,7 +257,21 @@ const StoresTable = (user) => {
                                     {debugLog("storeItem.api_key = " + storeItem.api_key)}
                                     {debugLog("itemData = " + itemData)}
                                     {debugLog("itemData.api_key = " + itemData.api_key)}
-                                    <TableCell className="font-medium"><APIKeyDisplay apiKey={itemData?.api_key} /></TableCell>
+                                    <TableCell className="font-medium">
+                                        <APIKeyDisplay 
+                                            apiKey={itemData?.api_key} 
+                                            configs={itemData?.configs} 
+                                            updateSettings={updateSettings}
+                                            OLFH={OLFH} setOLFH={setOLFH}
+                                            PLED={PLED} setPLED={setPLED}
+                                            PLFH={PLFH} setPLFH={setPLFH}
+                                            SLED={SLED} setSLED={setSLED}
+                                            SLELH={SLELH} setSLELH={setSLELH}
+                                            SLFH={SLFH} setSLFH={setSLFH}
+                                            TLED={TLED} setTLED={setTLED}
+                                            TLFH={TLFH} setTLFH={setTLFH}
+                                        />
+                                    </TableCell>
                                     <TableCell>{itemData?.metrics?.num_products ?? 0}</TableCell>
                                     <TableCell>{itemData?.metrics?.num_licenses ?? 0}</TableCell>
                                     <TableCell>{itemData?.metrics?.num_licensed_machines ?? 0}</TableCell>
