@@ -28,6 +28,20 @@ function debugLog(text) {
 }
 
 const StoresTable = (user) => {
+    // Helper function to sanitize and validate the input
+    const sanitizeInput = (value) => {
+        // Convert the value to a number and floor it to get a whole number.
+        let number = Math.floor(Number(value));
+        
+        // If the result is NaN, default to 0 (or you could throw an error)
+        if (isNaN(number)) {
+        number = 0;
+        }
+        
+        // Clamp the value between 0 and 100,000.
+        return Math.max(0, Math.min(100000, number));
+  };
+
     const { toast } = useToast();
     // create_store parameters
     const [idPrefix, setIdPrefix] = useLocalStorage("id_prefix", "");
@@ -151,14 +165,14 @@ const StoresTable = (user) => {
             const reqData = {
                 store_id: storeIdInput,
                 configs: {
-                    offline_license_frequency_hours: OLFH,
-                    perpetual_license_expiration_days: PLED,
-                    perpetual_license_frequency_hours: PLFH,
-                    subscription_license_expiration_days: SLED,
-                    subscription_license_expiration_leniency_hours: SLELH,
-                    subscription_license_frequency_hours: SLFH,
-                    trial_license_expiration_days: TLED,
-                    trial_license_frequency_hours: TLFH,
+                    offline_license_frequency_hours: sanitizeInput(OLFH),
+                    perpetual_license_expiration_days: sanitizeInput(PLED),
+                    perpetual_license_frequency_hours: sanitizeInput(PLFH),
+                    subscription_license_expiration_days: sanitizeInput(SLED),
+                    subscription_license_expiration_leniency_hours: sanitizeInput(SLELH),
+                    subscription_license_frequency_hours: sanitizeInput(SLFH),
+                    trial_license_expiration_days: sanitizeInput(TLED),
+                    trial_license_frequency_hours: sanitizeInput(TLFH),
                 }
             };
 
