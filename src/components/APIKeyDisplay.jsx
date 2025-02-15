@@ -349,13 +349,13 @@ const APIKeyDisplay = ({
                         <TableBody>
                             {products.map((product) => {
                                 return (
-                                    <TableRow key={product.id}>
+                                    <TableRow key={product?.id}>
                                         {debugLog("plugin = " + product)}
-                                        <TableCell className="font-medium"><LongCopyableTextField textToCopy={product.id} name="Product ID" /></TableCell>
-                                        <TableCell><LongCopyableTextField textToCopy={product.pubkey} name="public key" /></TableCell>
-                                        <TableCell>{product.offline_allowed}</TableCell>
-                                        <TableCell>{product.max_machines_per_license}</TableCell>
-                                        <TableCell>{product.version}</TableCell>
+                                        <TableCell className="font-medium"><LongCopyableTextField textToCopy={product?.id} name="Product ID" /></TableCell>
+                                        <TableCell><LongCopyableTextField textToCopy={product?.pubkey} name="public key" /></TableCell>
+                                        <TableCell>{product?.offline_allowed}</TableCell>
+                                        <TableCell>{product?.max_machines_per_license}</TableCell>
+                                        <TableCell>{product?.version}</TableCell>
                                     </TableRow>
                                 );
                             })}
