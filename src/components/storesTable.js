@@ -21,7 +21,7 @@ import APIKeyDisplay from "./APIKeyDisplay";
 import { useEffect } from "react";
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from './ui/toast';
-function debugLog(text) {
+export function debugLog(text) {
     if (true) {
         console.log(text);
     }
@@ -143,6 +143,7 @@ const StoresTable = (user) => {
             const storeInfo = {
                 api_key: apiKey,
                 configs: configs,
+                products: [],
                 metrics: {}
             };
 
@@ -182,6 +183,7 @@ const StoresTable = (user) => {
             const storeInfo = {
                 api_key: storeIdInput,
                 configs: json.configs,
+                products: currentStore[storeIdInput]?.products,
                 metrics: currentStore[storeIdInput].metrics,
             }
             const newKey = { [storeIdInput]: storeInfo };
@@ -277,6 +279,7 @@ const StoresTable = (user) => {
                                         <APIKeyDisplay 
                                             apiKey={itemData?.api_key} 
                                             configs={itemData?.configs} 
+                                            products={itemData?.products}
                                             updateSettings={updateSettings}
                                             OLFH={OLFH} setOLFH={setOLFH}
                                             PLED={PLED} setPLED={setPLED}

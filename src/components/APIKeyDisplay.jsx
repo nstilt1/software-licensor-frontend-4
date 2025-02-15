@@ -38,6 +38,7 @@ TableHead,
 TableHeader,
 TableRow,
 } from "@/components/ui/table";
+import { debugLog } from './storesTable';
 
 const FrequencyTooltip = () => {
     return (
@@ -66,6 +67,7 @@ const ExpirationTooltip = () => {
 const APIKeyDisplay = ({ 
     apiKey, 
     configs,
+    products,
     updateSettings,
     OLFH, setOLFH,
     PLED, setPLED,
@@ -77,6 +79,7 @@ const APIKeyDisplay = ({
     TLFH, setTLFH
 }) => {
     const [open, setOpen] = useState(false);
+    const [productsOpen, setProductsOpen] = useState(false);
   const { toast } = useToast();
 
   if (!apiKey) {
@@ -126,11 +129,14 @@ const APIKeyDisplay = ({
             <ContextMenuItem inset onSelect={() => setTimeout(() => setOpen(true), 0)}>
                 Update Settings
             </ContextMenuItem>
+            <ContextMenuItem inset onSelect={() => setTimeout(() => setProductsOpen(true), 0)}>
+                View Products
+            </ContextMenuItem>
             
         </ContextMenuContent>
     </ContextMenu>
 
-    {/* Render the dialog outside of the context menu */}
+    {/* Render the Update Store Settings dialog outside of the context menu */}
     {open && (<Dialog open={open} onOpenChange={setOpen}>
         <DialogPortal>
             <DialogOverlay />
@@ -310,7 +316,59 @@ const APIKeyDisplay = ({
                 </DialogFooter>
             </DialogContent>
         </DialogPortal>
-            
+    </Dialog>
+    )}
+    {/* Render the Update Store Settings dialog outside of the context menu */}
+    {productsOpen && (<Dialog open={productsOpen} onOpenChange={setProductsOpen}>
+        <DialogPortal>
+            <DialogOverlay />
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>View Products</DialogTitle>
+                    <DialogDescription>
+                        Here, you can view your store's products. Note that you 
+                        cannot create a product here. That must be done using the 
+                        store's Software Licensor interface. This is because 
+                        the product names need to be associated with Product IDs, 
+                        and it takes too many API requests to ensure that the Product 
+                        IDs are always up to date in the Store's database.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className='dialog-body'>
+                    <Table>
+                        <TableHeader>
+                            <TableRow key="0">
+                                <TableHead className="w-[100px]">Product ID</TableHead>
+                                <TableHead>Product Public Key</TableHead>
+                                <TableHead>Offline Allowed?</TableHead>
+                                <TableHead>Max Machines per License</TableHead>
+                                <TableHead>Version</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {products.map((product) => {
+                                return (
+                                    <TableRow key={product.id}>
+                                        {debugLog("plugin = " + product)}
+                                        <TableCell className="font-medium">{product.id}</TableCell>
+                                        <TableCell>{product.pubkey}</TableCell>
+                                        <TableCell>{product.offline_allowed}</TableCell>
+                                        <TableCell>{product.max_machines_per_license}</TableCell>
+                                        <TableCell>{product.version}</TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" onClick={(event) => {
+                        event.preventDefault();
+                        setProductsOpen(false);
+                    }}>Close</Button>
+                </DialogFooter>
+            </DialogContent>
+        </DialogPortal>
     </Dialog>
     )}
     </>
