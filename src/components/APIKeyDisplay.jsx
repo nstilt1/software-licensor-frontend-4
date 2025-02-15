@@ -351,6 +351,7 @@ const APIKeyDisplay = ({
                                 return (
                                     <TableRow key={product?.id}>
                                         {debugLog("plugin = " + product)}
+                                        {debugLog(product)}
                                         <TableCell className="font-medium"><LongCopyableTextField textToCopy={product?.id} name="Product ID" /></TableCell>
                                         <TableCell><LongCopyableTextField textToCopy={product?.pubkey} name="public key" /></TableCell>
                                         <TableCell>{product?.offline_allowed}</TableCell>
