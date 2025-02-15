@@ -326,12 +326,12 @@ const APIKeyDisplay = ({
                 <DialogHeader>
                     <DialogTitle>View Products</DialogTitle>
                     <DialogDescription>
-                        Here, you can view your store's products. Note that you 
+                        Here, you can view your store&apos;s products. Note that you 
                         cannot create a product here. That must be done using the 
-                        store's Software Licensor interface. This is because 
+                        store&apos;s Software Licensor interface. This is because 
                         the product names need to be associated with Product IDs, 
                         and it takes too many API requests to ensure that the Product 
-                        IDs are always up to date in the Store's database.
+                        IDs are always up to date in the Store&apos;s database.
                     </DialogDescription>
                 </DialogHeader>
                 <div className='dialog-body'>
