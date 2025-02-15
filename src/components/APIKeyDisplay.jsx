@@ -39,6 +39,7 @@ TableHeader,
 TableRow,
 } from "@/components/ui/table";
 import { debugLog } from './storesTable';
+import LongCopyableTextField from './LongCopyableTextField';
 
 const FrequencyTooltip = () => {
     return (
@@ -350,8 +351,8 @@ const APIKeyDisplay = ({
                                 return (
                                     <TableRow key={product.id}>
                                         {debugLog("plugin = " + product)}
-                                        <TableCell className="font-medium">{product.id}</TableCell>
-                                        <TableCell>{product.pubkey}</TableCell>
+                                        <TableCell className="font-medium"><LongCopyableTextField textToCopy={product.id} name="Product ID" /></TableCell>
+                                        <TableCell><LongCopyableTextField textToCopy={product.pubkey} name="public key" /></TableCell>
                                         <TableCell>{product.offline_allowed}</TableCell>
                                         <TableCell>{product.max_machines_per_license}</TableCell>
                                         <TableCell>{product.version}</TableCell>
