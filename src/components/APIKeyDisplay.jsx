@@ -354,7 +354,7 @@ const APIKeyDisplay = ({
                                         {debugLog(product)}
                                         <TableCell className="font-medium"><LongCopyableTextField textToCopy={product?.id} name="Product ID" /></TableCell>
                                         <TableCell><LongCopyableTextField textToCopy={product?.pubkey} name="public key" /></TableCell>
-                                        <TableCell>{product?.offline_allowed}</TableCell>
+                                        <TableCell>{product?.offline_allowed ? "true" : "false"}</TableCell>
                                         <TableCell>{product?.max_machines_per_license}</TableCell>
                                         <TableCell>{product?.version}</TableCell>
                                     </TableRow>
