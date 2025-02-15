@@ -38,6 +38,16 @@ const LongCopyableTextField = ({
         });
       });
   };
+
+  return (
+    <span
+        onClick={copyToClipboard}
+        style={{ cursor: 'pointer', userSelect: 'none' }}
+        title="Click to copy full text"
+        >
+        {formattedKey}
+    </span>
+  )
 };
 
 export default LongCopyableTextField;
