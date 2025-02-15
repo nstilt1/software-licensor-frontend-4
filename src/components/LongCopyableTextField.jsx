@@ -8,7 +8,7 @@ const LongCopyableTextField = ({
 }) => {
   const { toast } = useToast();
 
-  if (!apiKey) {
+  if (!textToCopy) {
     return <span>Undefined {name}</span>;
   }
 
