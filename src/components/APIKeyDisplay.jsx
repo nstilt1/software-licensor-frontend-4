@@ -335,7 +335,7 @@ const APIKeyDisplay = ({
     {productsOpen && (<Dialog open={productsOpen} onOpenChange={setProductsOpen}>
         <DialogPortal>
             <DialogOverlay />
-            <DialogContent>
+            <DialogContent className="max-w-[90vw] md:max-w[800px]">
                 <DialogHeader>
                     <DialogTitle>View Products</DialogTitle>
                     <DialogDescription>
@@ -347,7 +347,7 @@ const APIKeyDisplay = ({
                         IDs are always up to date in the Store&apos;s database.
                     </DialogDescription>
                 </DialogHeader>
-                <div className='dialog-body'>
+                <div className='products-table'>
                     <Table>
                         <TableHeader>
                             <TableRow key="0">

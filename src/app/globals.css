@@ -80,3 +80,7 @@ body {
 .code-container {
   overflow-y: auto
 }
+
+.products-table {
+  overflow-x: auto
+}

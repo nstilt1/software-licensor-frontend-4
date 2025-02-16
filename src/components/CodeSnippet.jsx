@@ -29,6 +29,7 @@ const CodeSnippetDialog = ({ open, onOpenChange, apiKey, selectedProducts }) => 
           productIdsAndPubkeys.push_back("${product.id};${product.pubkey}");`;
       });
       code += `
+      
           return productIdsAndPubkeys;
       }
   };`.trim();
