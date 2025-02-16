@@ -28,11 +28,8 @@ const CodeSnippetDialog = ({ open, onOpenChange, apiKey, selectedProducts }) => 
         code += `
           productIdsAndPubkeys.push_back("${product.id};${product.pubkey}");`;
       });
-      code += `
-      
-          return productIdsAndPubkeys;
-      }
-  };`.trim();
+      code += code += "\n\n        return productIdsAndPubkeys;\n    }\n};";
+      code = code.trim();
       return code;
     };
   

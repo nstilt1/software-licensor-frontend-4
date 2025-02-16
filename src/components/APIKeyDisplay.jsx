@@ -335,7 +335,7 @@ const APIKeyDisplay = ({
     {productsOpen && (<Dialog open={productsOpen} onOpenChange={setProductsOpen}>
         <DialogPortal>
             <DialogOverlay />
-            <DialogContent className="max-w-[90vw] md:max-w[800px]">
+            <DialogContent className="max-w-[800px] md:max-w[800px]">
                 <DialogHeader>
                     <DialogTitle>View Products</DialogTitle>
                     <DialogDescription>
