@@ -47,8 +47,11 @@ public:
           <DialogOverlay />
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>C++ Code Snippet</DialogTitle>
+              <DialogTitle>Software Licensor JUCE C++ Interface</DialogTitle>
             </DialogHeader>
+            <DialogDescription>
+                Use this code to interface with the Software Licensor API in your client-side code. See the docs for details.
+            </DialogDescription>
             <div className="code-container" style={{ marginBottom: '1rem' }}>
                 <SyntaxHighlighter 
                     language="cpp" 
