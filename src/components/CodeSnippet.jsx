@@ -1,5 +1,8 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+import { Button } from "@/components/ui/button";
 
 const CodeSnippetDialog = ({ open, onOpenChange, apiKey, selectedProducts }) => {
     const generateCode = () => {
