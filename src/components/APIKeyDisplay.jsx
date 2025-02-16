@@ -40,6 +40,8 @@ TableRow,
 } from "@/components/ui/table";
 import { debugLog } from './storesTable';
 import LongCopyableTextField from './LongCopyableTextField';
+import { Checkbox } from './ui/checkbox';
+import CodeSnippetDialog from './CodeSnippet';
 
 const FrequencyTooltip = () => {
     return (
@@ -81,7 +83,17 @@ const APIKeyDisplay = ({
 }) => {
     const [open, setOpen] = useState(false);
     const [productsOpen, setProductsOpen] = useState(false);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+    const [codeDialogOpen, setCodeDialogOpen] = useState(false);
   const { toast } = useToast();
+
+  const handleCheckboxChange = (product, checked) => {
+    if (checked) {
+      setSelectedProducts(prev => [...prev, { id: product.id, pubkey: product.pubkey }]);
+    } else {
+      setSelectedProducts(prev => prev.filter(p => p.id !== product.id));
+    }
+  };
 
   if (!apiKey) {
     return <span>Undefined API Key</span>;
@@ -319,7 +331,7 @@ const APIKeyDisplay = ({
         </DialogPortal>
     </Dialog>
     )}
-    {/* Render the Update Store Settings dialog outside of the context menu */}
+    {/* Render the View Products dialog outside of the context menu */}
     {productsOpen && (<Dialog open={productsOpen} onOpenChange={setProductsOpen}>
         <DialogPortal>
             <DialogOverlay />
@@ -339,6 +351,7 @@ const APIKeyDisplay = ({
                     <Table>
                         <TableHeader>
                             <TableRow key="0">
+                                <TableHead>Select</TableHead>
                                 <TableHead className="w-[100px]">Product ID</TableHead>
                                 <TableHead>Product Public Key</TableHead>
                                 <TableHead>Offline Allowed?</TableHead>
@@ -352,6 +365,11 @@ const APIKeyDisplay = ({
                                     <TableRow key={product?.id}>
                                         {debugLog("plugin = " + product)}
                                         {debugLog(product)}
+                                        <TableCell>
+                                            <Checkbox 
+                                                onCheckedChange={(checked) => handleCheckboxChange(product, checked)}
+                                            />
+                                        </TableCell>
                                         <TableCell className="font-medium"><LongCopyableTextField textToCopy={product?.id} name="Product ID" /></TableCell>
                                         <TableCell><LongCopyableTextField textToCopy={product?.pubkey} name="public key" /></TableCell>
                                         <TableCell>{product?.offline_allowed ? "true" : "false"}</TableCell>
@@ -368,11 +386,24 @@ const APIKeyDisplay = ({
                         event.preventDefault();
                         setProductsOpen(false);
                     }}>Close</Button>
+                    <Button 
+                        type="submit" 
+                        disabled={selectedProducts.length === 0}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setCodeDialogOpen(true);
+                    }}>Generate Code</Button>
                 </DialogFooter>
             </DialogContent>
         </DialogPortal>
     </Dialog>
     )}
+    <CodeSnippetDialog
+        open={codeDialogOpen}
+        onOpenChange={setCodeDialogOpen}
+        apiKey={apiKey}
+        selectedProducts={selectedProducts}
+    />
     </>
   );
 };
