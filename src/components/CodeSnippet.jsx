@@ -6,30 +6,32 @@ import { Button } from "@/components/ui/button";
 
 const CodeSnippetDialog = ({ open, onOpenChange, apiKey, selectedProducts }) => {
     const generateCode = () => {
-      let code = `
-  class MyLicensingStatus : public SoftwareLicensorStatus
-  {
-  public:
-      juce::String getStoreId() override
-      {
-          return juce::String("${apiKey}"); 
-      }
-  
-      juce::String getCompanyName() override
-      {
-          // used to pick a license file storage location 
-          return juce::String("MyCompanyName");
-      }
-  
-      std::vector<juce::String> getProductIdsAndPubkeys() override
-      {
-          std::vector<juce::String> productIdsAndPubkeys;`;
-      selectedProducts.forEach(product => {
-        code += `
-          productIdsAndPubkeys.push_back("${product.id};${product.pubkey}");`;
-      });
-      code += code += "\n\n        return productIdsAndPubkeys;\n    }\n};";
-      code = code.trim();
+        let code = `
+class MyLicensingStatus : public SoftwareLicensorStatus
+{
+public:
+    juce::String getStoreId() override
+    {
+        return juce::String("${apiKey}"); 
+    }
+
+    juce::String getCompanyName() override
+    {
+        // used to pick a license file storage location 
+        return juce::String("MyCompanyName");
+    }
+
+    std::vector<juce::String> getProductIdsAndPubkeys() override
+    {
+        std::vector<juce::String> productIdsAndPubkeys;`;
+        selectedProducts.forEach(product => {
+          code += `
+        productIdsAndPubkeys.push_back("${product.id};${product.pubkey}");`;
+        });
+        // Instead of relying solely on template literal whitespace,
+        // add explicit newline characters before the return statement.
+        code += "\n\n        return productIdsAndPubkeys;\n    }\n};";
+        code = code.trim();
       return code;
     };
   
