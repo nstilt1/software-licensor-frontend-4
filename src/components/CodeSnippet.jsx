@@ -50,9 +50,13 @@ const CodeSnippetDialog = ({ open, onOpenChange, apiKey, selectedProducts }) => 
               <DialogTitle>C++ Code Snippet</DialogTitle>
             </DialogHeader>
             <div className="code-container" style={{ marginBottom: '1rem' }}>
-              <SyntaxHighlighter language="cpp" style={oneDark}>
-                {cppCode}
-              </SyntaxHighlighter>
+                <SyntaxHighlighter 
+                    language="cpp" 
+                    style={oneDark}
+                    wrapLongLines={true}
+                >
+                    {cppCode}
+                </SyntaxHighlighter>
             </div>
             <DialogFooter>
               <Button onClick={copyCode}>Copy Code</Button>
