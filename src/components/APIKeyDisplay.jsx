@@ -142,7 +142,10 @@ const APIKeyDisplay = ({
             <ContextMenuItem inset onSelect={() => setTimeout(() => setOpen(true), 0)}>
                 Update Settings
             </ContextMenuItem>
-            <ContextMenuItem inset onSelect={() => setTimeout(() => setProductsOpen(true), 0)}>
+            <ContextMenuItem inset onSelect={() => {
+                setSelectedProducts([]);
+                setTimeout(() => setProductsOpen(true), 0);
+            }}>
                 View Products
             </ContextMenuItem>
             
