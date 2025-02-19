@@ -1,0 +1,63 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-softwarelicensor-dev-a1be8-authRole",
+      "UnauthRoleArn": "arn:aws:iam::744502367450:role/amplify-softwarelicensor-dev-a1be8-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::744502367450:role/amplify-softwarelicensor-dev-a1be8-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-softwarelicensor-dev-a1be8-deployment",
+      "UnauthRoleName": "amplify-softwarelicensor-dev-a1be8-unauthRole",
+      "StackName": "amplify-softwarelicensor-dev-a1be8",
+      "StackId": "arn:aws:cloudformation:us-east-1:744502367450:stack/amplify-softwarelicensor-dev-a1be8/78b47590-d83a-11ef-a37a-0affc7938aed",
+      "AmplifyAppId": "d31rshks0d0xcs"
+    }
+  },
+  "auth": {
+    "softwarelicensor13fcb294": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [
+          "GOOGLE"
+        ],
+        "usernameAttributes": [
+          "EMAIL",
+          "PHONE_NUMBER"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-softwarelicensor-dev-a1be8-deployment/amplify-cfn-templates/auth/softwarelicensor13fcb294-cloudformation-template.json",
+        "logicalId": "authsoftwarelicensor13fcb294"
+      },
+      "lastPushTimeStamp": "2025-01-22T19:06:08.217Z",
+      "output": {
+        "UserPoolId": "us-east-1_W1KoU5K2W",
+        "AppClientIDWeb": "2mmn1i3etlc73hmbmp4r8r4ar5",
+        "AppClientID": "1lu7q7t270q681djq40kakl8u2",
+        "HostedUIDomain": "softwarelicensor13fcb294-13fcb294-dev",
+        "IdentityPoolId": "us-east-1:3ed63a56-1dab-48b9-a9b5-e78bc8da4148",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:744502367450:userpool/us-east-1_W1KoU5K2W",
+        "IdentityPoolName": "softwarelicensor13fcb294_identitypool_13fcb294__dev",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dashboard.softwarelicensor.com/\",\"http://localhost:3000/\",\"https://dashboard.d31rshks0d0xcs.amplifyapp.com/\"],\"LogoutURLs\":[\"https://softwarelicensor.com/\",\"http://localhost:3000/\",\"https://d31rshks0d0xcs.amplifyapp.com/\"]}",
+        "UserPoolName": "softwarelicensor13fcb294_userpool_13fcb294"
+      },
+      "lastPushDirHash": "Bjr3dlJ/aqMgtaer3V/C63kNKvE="
+    }
+  }
+}

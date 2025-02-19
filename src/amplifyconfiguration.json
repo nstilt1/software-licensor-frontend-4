@@ -1,0 +1,42 @@
+{
+  "aws_project_region": "us-east-1",
+  "aws_cognito_identity_pool_id": "us-east-1:3ed63a56-1dab-48b9-a9b5-e78bc8da4148",
+  "aws_cognito_region": "us-east-1",
+  "aws_user_pools_id": "us-east-1_W1KoU5K2W",
+  "aws_user_pools_web_client_id": "2mmn1i3etlc73hmbmp4r8r4ar5",
+  "oauth": {
+    "domain": "softwarelicensor13fcb294-13fcb294-dev.auth.us-east-1.amazoncognito.com",
+    "scope": [
+      "phone",
+      "email",
+      "openid",
+      "profile",
+      "aws.cognito.signin.user.admin"
+    ],
+    "redirectSignIn": "https://dashboard.softwarelicensor.com/,http://localhost:3000/,https://dashboard.d31rshks0d0xcs.amplifyapp.com/",
+    "redirectSignOut": "https://softwarelicensor.com/,http://localhost:3000/,https://d31rshks0d0xcs.amplifyapp.com/",
+    "responseType": "code"
+  },
+  "federationTarget": "COGNITO_USER_POOLS",
+  "aws_cognito_username_attributes": [
+    "EMAIL",
+    "PHONE_NUMBER"
+  ],
+  "aws_cognito_social_providers": [
+    "GOOGLE"
+  ],
+  "aws_cognito_signup_attributes": [
+    "EMAIL"
+  ],
+  "aws_cognito_mfa_configuration": "OFF",
+  "aws_cognito_mfa_types": [
+    "SMS"
+  ],
+  "aws_cognito_password_protection_settings": {
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": []
+  },
+  "aws_cognito_verification_mechanisms": [
+    "EMAIL"
+  ]
+}
