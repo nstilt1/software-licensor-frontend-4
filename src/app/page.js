@@ -20,6 +20,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import StoresTable from '@/components/storesTable';
+import Docs from '@/components/Docs';
+import Billing from '@/components/Billing';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 Amplify.configure({
   ...awsExports,
@@ -34,22 +38,30 @@ const Home = () => {
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   
   return (
-    <div className='flex justify-center h-screen p-40'>
+    <>
+      <Navbar signOut={signOut} />
+    <div className='flex justify-center h-screen p-20'>
         <main>
-          <Tabs defaultValue="stores">
+          <Tabs defaultValue="stores" className="mx-auto px-4 pb-16">
             <TabsList className='flex items-center justify-center'>
               <TabsTrigger value="stores">Stores</TabsTrigger>
-              <TabsTrigger value="account">Account</TabsTrigger>
+              <TabsTrigger value="docs">Docs</TabsTrigger>
+              <TabsTrigger value="billing">Billing</TabsTrigger>
             </TabsList>
             <TabsContent value="stores">
               <StoresTable user={user} />
             </TabsContent>
+            <TabsContent value="docs">
+              <Docs />
+            </TabsContent>
+            <TabsContent value="billing">
+              <Billing />
+            </TabsContent>
           </Tabs>
-          <Button onClick={signOut}>Sign out</Button>
-          <h1>Hello {user?.userId}</h1>
-          <Button>Create store</Button>
         </main>
     </div>
+    <Footer />
+    </>
   );
 }
 

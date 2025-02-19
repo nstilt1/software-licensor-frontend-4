@@ -84,3 +84,7 @@ body {
 .products-table {
   overflow-x: auto
 }
+
+.doc-link {
+  text-decoration: underline;
+}
