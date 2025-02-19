@@ -61,8 +61,8 @@ codesign --sign "Developer ID Application: [name] [ID] *OR* SHA-1 hash" \\
                         </p>
                         <p>
                             There is an option to share customer data with Software Licensor. This 
-                            only includes their names and their email addresses. The email addresses 
-                            are hashed and you can access their name in the client side code.
+                            only includes their names and their email addresses. This data is 
+                            encrypted at rest and you can access their information in the client side code.
                         </p>
                         <p>
                             There is also an option for setting up an email message when a user 
