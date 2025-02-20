@@ -365,6 +365,25 @@ codesign --sign "Developer ID Application: [name] [ID] *OR* SHA-1 hash" \\
                                         product IDs, click <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">Generate code</span> at 
                                         the bottom to generate the C++ class that inherits <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">SoftwareLicensorStatus</span>.
                                     </p>
+                                    <p>
+                                        Now, in your <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.h</span> class, 
+                                        you need to have a <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">MyLicensingStatus</span> member 
+                                        inside the Audio Processor class called <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus</span>. Then, 
+                                        the constructor in <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.cpp</span> needs 
+                                        to have an initializer as <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus()</span>. In 
+                                        <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.cpp</span> in the 
+                                        constructor, we need to call <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.check_license_with_potential_api_request();</span>. 
+                                        This method needs to be called at least once every time the application runs to ensure that 
+                                        API requests are made, ensuring that the expiration in the license file is renewed. 
+                                    </p>
+                                    <p>
+                                        Then, throughout the rest of the code, we need to use 
+                                        <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.check_license_with_no_api_request();</span>. 
+                                        This will read the locally stored license file without halting the system 
+                                        with an API request, and update the unlockStatus variable. At any point in the 
+                                        running of the program where you want to determine if the product should be unlocked, 
+                                        you can call <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.isUnlocked()</span>.
+                                    </p>
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="3.3">
