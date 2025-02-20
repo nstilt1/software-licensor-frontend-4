@@ -375,7 +375,7 @@ codesign --sign "Developer ID Application: [name] [ID] *OR* SHA-1 hash" \\
                                                     name. The company name is used to create a folder in 
                                                     <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">ProgramData</span> and 
                                                     in <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">Library/Application Support</span> to 
-                                                    store your store's license information. You must not use another company&apos;s 
+                                                    store your store&apos;s license information. You must not use another company&apos;s 
                                                     name here.
                                                 </p>
                                             </AccordionContent>
