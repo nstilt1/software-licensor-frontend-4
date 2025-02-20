@@ -354,36 +354,87 @@ codesign --sign "Developer ID Application: [name] [ID] *OR* SHA-1 hash" \\
                                         and cpp files into my audio plugin&apos;s modules folder. The files 
                                         can be found <Link href="https://github.com/nstilt1/software-licensor-client-side-library/tree/master/SoftwareLicensorJUCE/Source">here</Link>. 
                                     </p>
-                                    <p>
-                                        To use this <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">SoftwareLicensorStatus</span> class, 
-                                        you must create a new class that inherits this class. You can actually generate 
-                                        the new class by navigating to the Stores table within this dashboard, 
-                                        then right-click the store&apos;s API key, choose <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">View Products</span>, then 
-                                        select the product IDs that should be used to unlock your product. Note that you can 
-                                        use one Product as a &quot;Bundle&quot; that unlocks multiple products, or you 
-                                        could use a Product as an individual product. After selecting the relevant 
-                                        product IDs, click <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">Generate code</span> at 
-                                        the bottom to generate the C++ class that inherits <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">SoftwareLicensorStatus</span>.
-                                    </p>
-                                    <p>
-                                        Now, in your <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.h</span> class, 
-                                        you need to have a <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">MyLicensingStatus</span> member 
-                                        inside the Audio Processor class called <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus</span>. Then, 
-                                        the constructor in <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.cpp</span> needs 
-                                        to have an initializer as <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus()</span>. In 
-                                        <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.cpp</span> in the 
-                                        constructor, we need to call <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.check_license_with_potential_api_request();</span>. 
-                                        This method needs to be called at least once every time the application runs to ensure that 
-                                        API requests are made, ensuring that the expiration in the license file is renewed. 
-                                    </p>
-                                    <p>
-                                        Then, throughout the rest of the code, we need to use 
-                                        <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.check_license_with_no_api_request();</span>. 
-                                        This will read the locally stored license file without halting the system 
-                                        with an API request, and update the unlockStatus variable. At any point in the 
-                                        running of the program where you want to determine if the product should be unlocked, 
-                                        you can call <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.isUnlocked()</span>.
-                                    </p>
+                                    
+                                    <Accordion type="single" collapsible className="w-full pl-10 pr-10">
+                                        <AccordionItem value="3.2.1">
+                                            <AccordionTrigger>Inheriting the SoftwareLicensorStatus class</AccordionTrigger>
+                                            <AccordionContent>
+                                                <p>
+                                                    To use this <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">SoftwareLicensorStatus</span> class, 
+                                                    you must create a new class that inherits this class. You can actually generate 
+                                                    the new class by navigating to the Stores table within this dashboard, 
+                                                    then right-click the store&apos;s API key, choose <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">View Products</span>, then 
+                                                    select the product IDs that should be used to unlock your product. Note that you can 
+                                                    use one Product as a &quot;Bundle&quot; that unlocks multiple products, or you 
+                                                    could use a Product as an individual product. After selecting the relevant 
+                                                    product IDs, click <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">Generate code</span> at 
+                                                    the bottom to generate the C++ class that inherits <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">SoftwareLicensorStatus</span>.
+                                                </p>
+                                                <p>
+                                                    Before using this generated code in production, you need to set your company 
+                                                    name. The company name is used to create a folder in 
+                                                    <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">ProgramData</span> and 
+                                                    in <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">Library/Application Support</span> to 
+                                                    store your store's license information. You must not use another company&apos;s 
+                                                    name here.
+                                                </p>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="3.2.2">
+                                            <AccordionTrigger>Using SoftwareLicensorStatus</AccordionTrigger>
+                                            <AccordionContent>
+                                                <p>
+                                                    Now, in your <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.h</span> file, 
+                                                    you need to have a <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">MyLicensingStatus</span> member 
+                                                    inside the Audio Processor class called <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus</span>. Then, 
+                                                    the constructor in <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.cpp</span> needs 
+                                                    to have an initializer as <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus()</span>. In 
+                                                    <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">PluginProcessor.cpp</span> in the 
+                                                    constructor, we need to call <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.check_license_with_potential_api_request()</span>. 
+                                                    This method needs to be called at least once every time the application runs to ensure that 
+                                                    API requests are made, ensuring that the expiration in the license file gets renewed. 
+                                                </p>
+                                                <p>
+                                                    Then, throughout the rest of the code, we need to use 
+                                                    <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.check_license_with_no_api_request()</span>. 
+                                                    This will read the locally stored license file without halting the system 
+                                                    with an API request, and update the unlockStatus variable. At any point in the 
+                                                    running of the program where you want to determine if the product should be unlocked, 
+                                                    you can call <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.isUnlocked()</span>.
+                                                </p>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="3.2.3">
+                                            <AccordionTrigger>Accessing the product&apos;s version and the licensee&apos;s information at runtime</AccordionTrigger>
+                                            <AccordionContent>
+                                                <p>
+                                                    Let&apos;s say you want to use Software Licensor for version checking. 
+                                                    You can update a product&apos;s version in your Store&apos;s dashboard, 
+                                                    and you can access the version at runtime using 
+                                                    <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.getCloudVersion()</span>. 
+                                                    You will need to parse the version and compare it with a hardcoded version 
+                                                    in the client.
+                                                </p>
+                                                <p>
+                                                    If you want to access the licensee&apos;s name at runtime, you can use 
+                                                    <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.getUserFirstName()</span>, 
+                                                    <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.getUserLastName()</span>, and
+                                                    <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.getUserEmail()</span>. You 
+                                                    can also use <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">unlockStatus.getLicenseType()</span> if you 
+                                                    want to get the license type.
+                                                </p>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="3.2.4">
+                                            <AccordionTrigger>An example implementation</AccordionTrigger>
+                                            <AccordionContent>
+                                                If you want to see a crude example implementation that is semi-organized, 
+                                                my first plugin is open source. You can find it <Link href="https://github.com/nstilt1/mofo-repo/tree/licensing/mofoMojoVst/Source">here</Link>, and licensing is only 
+                                                implemented on the <span class="font-mono bg-gray-200 text-gray-800 px-1 rounded">licensing</span> branch.
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    </Accordion>
+                                    
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="3.3">
