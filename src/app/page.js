@@ -5,7 +5,7 @@ import { Amplify } from 'aws-amplify';
 import { withAuthenticator, Authenticator, useTheme, View, Heading, Text, useAuthenticator } from "@aws-amplify/ui-react";
 import Image from "next/image";
 import awsExports from '../aws-exports';
-import Next from '../../public/next.svg';
+import Logo from '../../public/software-licensor.svg';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -72,8 +72,8 @@ const components = {
     return (
       <View textAlign="center" padding={tokens.space.large}>
         <Image
-          alt="Amplify logo"
-          src={Next}
+          alt="Software Licensor"
+          src={Logo}
         />
       </View>
     );
