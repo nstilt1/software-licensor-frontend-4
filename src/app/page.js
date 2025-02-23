@@ -4,53 +4,53 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-    </div>
+    <section id="section-2-11" class=" ct-section">
+            <div class="ct-section-inner-wrap">
+                <h1 id="headline-3-11" class="ct-headline">Looking for an open source licensing service?</h1>
+                <div id="_rich_text-11-11" class="oxy-rich-text">
+                    <p>
+                        We have you covered. All of the source code for Software Licensor is available on <a href="https://github.com/nstilt1" target="_blank" rel="noopener">GitHub</a>
+                        . The service is hosted serverlessly with AWS API Gateway, Lambda, and DynamoDB. The backend uses a custom cryptographic protocol with standard cryptographic primitives.
+                    </p>
+                </div>
+                <div id="div_block-19-11" class="ct-div-block">
+                    <h1 id="headline-20-11" class="ct-headline">What can be done with Software Licensor?</h1>
+                    <div id="text_block-56-11" class="ct-text-block">Software Licensor is capable of providing Trial Licenses and Perpetual Licenses for software.</div>
+                    <div id="new_columns-23-11" class="ct-new-columns">
+                        <div id="div_block-24-11" class="ct-div-block">
+                            <div id="div_block-30-11" class="ct-div-block">
+                                <h3 id="headline-31-11" class="ct-headline">Sell unlimited licenses</h3>
+                                <div id="text_block-33-11" class="ct-text-block">There is no limit for how many licenses you can sell</div>
+                            </div>
+                            <div id="div_block-41-11" class="ct-div-block">
+                                <h3 id="headline-42-11" class="ct-headline">Compatible with WordPress</h3>
+                                <div id="text_block-43-11" class="ct-text-block">We have a WooCommerce plugin that interfaces with our API</div>
+                            </div>
+                        </div>
+                        <div id="div_block-25-11" class="ct-div-block">
+                            <div id="div_block-35-11" class="ct-div-block">
+                                <h3 id="headline-36-11" class="ct-headline">Have unlimited products</h3>
+                                <div id="text_block-37-11" class="ct-text-block">There is no limit on how many products you can have</div>
+                            </div>
+                            <div id="div_block-46-11" class="ct-div-block">
+                                <h3 id="headline-47-11" class="ct-headline">Client-side language compatibility</h3>
+                                <div id="text_block-48-11" class="ct-text-block">We have a Rust static library that can be called from many languages, and a C++ JUCE library</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="div_block-16-11" class="ct-div-block">
+                    <h1 id="headline-13-11" class="ct-headline">What can&apos;t be done with Software Licensor?</h1>
+                    <div id="_rich_text-18-11" class="oxy-rich-text">
+                        <p>Multiple stores cannot sell licenses for the same product, although the client-side code could be adjusted to use multiple Store IDs.</p>
+                        <p>Offline license activations and subscription licenses are not currently implemented. Not to worry, offline license activation and subscriptions are already implemented in the API&apos;s backend, but they would need to be implemented in the WordPress Plugin and in the client-side code (except for subscriptions; subscriptions only need to be implemented in the WordPress Plugin).</p>
+                        <p>
+                            Subscriptions aren&apos;t fully implemented because WooCommerce Subscriptions requires a subscription. Offline license activations aren&apos;t implemented because they require a new form to show up on your website, and a new component in the C++ code. More information about offline license activations can be found <a href="https://github.com/nstilt1/software-licensor-rust/issues/43">here</a>
+                            .
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
   );
 }

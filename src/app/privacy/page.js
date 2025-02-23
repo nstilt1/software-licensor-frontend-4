@@ -34,7 +34,7 @@ export default function PrivacyPage() {
               <span className="font-semibold">Google OAuth:</span> Users sign into the Software Licensor dashboard via Google OAuth. Google may share data such as your email address. We use this data solely for authentication purposes.
             </li>
             <li>
-              <span className="font-semibold">Company Sign-Ups:</span> Companies signing up for Software Licensor may opt in to provide customer names and email addresses for access during their software's runtime. This data is encrypted both in transit and at rest.
+              <span className="font-semibold">Company Sign-Ups:</span> Companies signing up for Software Licensor may opt in to provide customer names and email addresses for access during their software&apos;s runtime. This data is encrypted both in transit and at rest.
             </li>
             <li>
               <span className="font-semibold">License Activation:</span> When activating a license, users can opt to share anonymized hardware information—including OS name, CPU details (and its instruction sets), display language, RAM, and potentially the device’s MAC address—as well as their computer name. The computer name is stored separately. Both sets of data are encrypted.

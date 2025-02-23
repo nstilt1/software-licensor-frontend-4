@@ -47,7 +47,7 @@ export default function TermsPage() {
               <span className="font-semibold">No brute forcing:</span> Do not use brute force methods on Software Licensor.
             </li>
             <li>
-              <span className="font-semibold">No API abuse:</span> Do not abuse Software Licensor's API in any way.
+              <span className="font-semibold">No API abuse:</span> Do not abuse Software Licensor&apos;s API in any way.
             </li>
             <li>
               <span className="font-semibold">No supplying fake hardware information:</span> Do not supply fake hardware information in the license activation API request. If you need to test the API and do not wish to supply genuine hardware information, set the <code>hardware_stats</code> field to <code>None</code>.
