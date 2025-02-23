@@ -323,9 +323,11 @@ const StoresTable = (user) => {
                 </Table>
             </CardContent>
             <CardFooter>
+                <div>
                 <p>
                     This table can only be refreshed once per {refreshTimeoutSeconds / 60} minutes.
                 </p>
+                <br />
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button variant="outline">Create Store</Button>
@@ -349,7 +351,7 @@ const StoresTable = (user) => {
                     </DialogContent>
                 </Dialog>
                 <Button disabled={lastMetricsFetch + (refreshTimeoutSeconds) > now()} variant="outline" onClick={updateMetics}>Refresh Table</Button>
-                
+                </div>
             </CardFooter>
         </Card>
     );
