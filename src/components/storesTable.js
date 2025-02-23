@@ -27,6 +27,8 @@ export function debugLog(text) {
     }
 }
 
+const refreshTimeoutSeconds = 60 * 5;
+
 const StoresTable = (user) => {
     // Helper function to sanitize and validate the input
     const sanitizeInput = (value) => {
@@ -210,8 +212,8 @@ const StoresTable = (user) => {
 
     const updateMetics = async (event) => {
         event.preventDefault();
-        if (lastMetricsFetch && lastMetricsFetch + (60*60*4) > now()) {
-            debugLog("Last metrics fetch was too recent")
+        if (lastMetricsFetch && lastMetricsFetch + refreshTimeoutSeconds > now()) {
+            debugLog("Last metrics fetch was too recent. 5 minutes must pass between refreshes.")
             return;
         }
         try {
@@ -321,6 +323,9 @@ const StoresTable = (user) => {
                 </Table>
             </CardContent>
             <CardFooter>
+                <p>
+                    This table can only be refreshed once per {refreshTimeoutSeconds / 60} minutes.
+                </p>
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button variant="outline">Create Store</Button>
@@ -343,7 +348,7 @@ const StoresTable = (user) => {
                         </form>
                     </DialogContent>
                 </Dialog>
-                <Button disabled={lastMetricsFetch + (60*60*4) > now()} variant="outline" onClick={updateMetics}>Refresh Table</Button>
+                <Button disabled={lastMetricsFetch + (refreshTimeoutSeconds) > now()} variant="outline" onClick={updateMetics}>Refresh Table</Button>
                 
             </CardFooter>
         </Card>

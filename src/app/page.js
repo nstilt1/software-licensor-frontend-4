@@ -24,6 +24,7 @@ import Docs from '@/components/Docs';
 import Billing from '@/components/Billing';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Link from '@/components/Link';
 
 Amplify.configure({
   ...awsExports,
@@ -87,6 +88,7 @@ const components = {
         <Text color={tokens.colors.neutral[80]}>
           &copy; All Rights Reserved
         </Text>
+        <Text><Link href="https://softwarelicensor.com/privacy">Privacy Policy</Link></Text>
       </View>
     );
   },
@@ -165,7 +167,7 @@ const components = {
       );
     },
     Footer() {
-      return <Text>Footer Information</Text>;
+      return <Text><Link href="https://softwarelicensor.com/privacy">Privacy Policy</Link></Text>;
     },
   },
   SetupTotp: {
@@ -181,7 +183,7 @@ const components = {
       );
     },
     Footer() {
-      return <Text>Footer Information</Text>;
+      return <Text><Link href="https://softwarelicensor.com/privacy">Privacy Policy</Link></Text>;
     },
   },
   ConfirmSignIn: {
@@ -197,7 +199,7 @@ const components = {
       );
     },
     Footer() {
-      return <Text>Footer Information</Text>;
+      return <Text><Link href="https://softwarelicensor.com/privacy">Privacy Policy</Link></Text>;
     },
   },
   ForgotPassword: {
@@ -213,7 +215,7 @@ const components = {
       );
     },
     Footer() {
-      return <Text>Footer Information</Text>;
+      return <Text><Link href="https://softwarelicensor.com/privacy">Privacy Policy</Link></Text>;
     },
   },
   ConfirmResetPassword: {
@@ -229,7 +231,7 @@ const components = {
       );
     },
     Footer() {
-      return <Text>Footer Information</Text>;
+      return <Text><Link href="https://softwarelicensor.com/privacy">Privacy Policy</Link></Text>;
     },
   },
 };
@@ -265,7 +267,7 @@ const formFields = {
   confirmResetPassword: {
     confirmation_code: {
       placeholder: 'Enter your Confirmation Code:',
-      label: 'New Label',
+      label: 'Confirmation code:',
       isRequired: false,
     },
     confirm_password: {
@@ -278,14 +280,14 @@ const formFields = {
       totpUsername: 'amplify_qr_test_user',
     },
     confirmation_code: {
-      label: 'New Label',
+      label: 'Confirmation code:',
       placeholder: 'Enter your Confirmation Code:',
       isRequired: false,
     },
   },
   confirmSignIn: {
     confirmation_code: {
-      label: 'New Label',
+      label: 'Confirmation code:',
       placeholder: 'Enter your Confirmation Code:',
       isRequired: false,
     },

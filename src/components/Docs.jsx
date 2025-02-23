@@ -318,6 +318,18 @@ codesign --sign "Developer ID Application: [name] [ID] *OR* SHA-1 hash" \\
                         for the bundle(s) and individual products.
                     </AccordionContent>
                 </AccordionItem>
+                <AccordionItem value="2-7">
+                    <AccordionTrigger>Updating your license expiration and renewal settings</AccordionTrigger>
+                    <AccordionContent>
+                        Your store has various settings for licensing. To view and change them, 
+                        right click on your store&apos;s API key, then select &quot;Update Settings.&quot; Here, 
+                        you can see the trial expiration period, as well as the perpetual and subscription 
+                        license expiration periods. For perpetual licenses, the license will expire if 
+                        a certain amount of days pass since the last API request. But you can specify 
+                        how many days that is, as well as how frequently the application attempts to make 
+                        a request to renew the expiration.
+                    </AccordionContent>
+                </AccordionItem>
                 <AccordionItem value="3">
                     <AccordionTrigger>Using Software Licensor in your Software</AccordionTrigger>
                     <AccordionContent>
