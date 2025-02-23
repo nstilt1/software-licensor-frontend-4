@@ -37,7 +37,7 @@ export default function PrivacyPage() {
               <span className="font-semibold">Company Sign-Ups:</span> Companies signing up for Software Licensor may opt in to provide customer names and email addresses for access during their software&apos;s runtime. This data is encrypted both in transit and at rest.
             </li>
             <li>
-              <span className="font-semibold">License Activation:</span> When activating a license, users can opt to share anonymized hardware information—including OS name, CPU details (and its instruction sets), display language, RAM, and potentially the device’s MAC address—as well as their computer name. The computer name is stored separately. Both sets of data are encrypted.
+              <span className="font-semibold">License Activation:</span> When activating a license, users can opt to share anonymized hardware information—including OS name, CPU details (and its instruction sets), display language, RAM, and potentially the device&apos;s MAC address—as well as their computer name. The computer name is stored separately. Both sets of data are encrypted.
             </li>
             <li>
               <span className="font-semibold">Store Owner Sign-Up:</span> During sign-up, we may collect a phone number and email address for MFA/OTP purposes. This information is not shared with third parties.
@@ -103,10 +103,13 @@ export default function PrivacyPage() {
           <p className="text-base mb-4">We share data only in the following scenarios:</p>
           <ul className="list-disc ml-6 space-y-2">
             <li>
-              <span className="font-semibold">Google OAuth:</span> Your email address (and possibly other profile data) may be shared by Google for authentication.
+              <span className="font-semibold">Google OAuth:</span> Your email address may be shared by Google when signing up with Google OAuth. We may also store a custom attribute to keep track of all of the API keys you create.
             </li>
             <li>
               <span className="font-semibold">Buy Me A Coffee:</span> If you support Software Licensor via Buy Me A Coffee, your data may be shared with that service as required.
+            </li>
+            <li>
+                <span className="font-semibold">Hardware statistics:</span> Your anonymized hardware statistics may be shared for R&D purposes.
             </li>
           </ul>
         </section>
