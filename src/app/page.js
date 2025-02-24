@@ -247,11 +247,11 @@ const formFields = {
       label: 'Password:',
       placeholder: 'Enter your Password:',
       isRequired: false,
-      order: 2,
+      order: 1,
     },
     confirm_password: {
       label: 'Confirm Password:',
-      order: 1,
+      order: 2,
     },
   },
   forceNewPassword: {
@@ -297,5 +297,5 @@ const formFields = {
 export default withAuthenticator(Home, {
  components,
  formFields,
- socialProviders: ['google']
+ socialProviders: [/*'google'*/]
 });
