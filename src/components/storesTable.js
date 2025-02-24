@@ -18,7 +18,7 @@ import { Input } from "./ui/input";
 import TextInput from "./TextInput";
 import { Button } from "./ui/button";
 import APIKeyDisplay from "./APIKeyDisplay";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from './ui/toast';
 export function debugLog(text) {
@@ -64,6 +64,8 @@ const StoresTable = (user) => {
     const [SLFH, setSLFH] = useLocalStorage("SLFH", 1000);
     const [TLED, setTLED] = useLocalStorage("TLED", 1000);
     const [TLFH, setTLFH] = useLocalStorage("TLFH", 1000);
+
+    const [createStoreDialogOpen, setCreateStoreDialogOpen] = useState(false);
 
     const now = () => {
         const time = Math.floor(Date.now() / 1000);
@@ -160,7 +162,7 @@ const StoresTable = (user) => {
                 cause: error.cause
             });
         }
-
+        setCreateStoreDialogOpen(false);
     }
 
     const updateSettings = async (storeIdInput) => {
@@ -328,7 +330,7 @@ const StoresTable = (user) => {
                     This table can only be refreshed once per {refreshTimeoutSeconds / 60} minutes.
                 </p>
                 <br />
-                <Dialog>
+                <Dialog open={createStoreDialogOpen} onOpenChange={setCreateStoreDialogOpen}>
                     <DialogTrigger asChild>
                         <Button variant="outline">Create Store</Button>
                     </DialogTrigger>
