@@ -26,6 +26,10 @@ export default function Home() {
                                 <h3 id="headline-42-11" class="ct-headline">Compatible with WordPress</h3>
                                 <div id="text_block-43-11" class="ct-text-block">We have a WooCommerce plugin that interfaces with our API</div>
                             </div>
+                            <div id="div_block-57-11" class="ct-div-block">
+                                <h3 id="headline-58-11" class="ct-headline">Sell bundles</h3>
+                                <div id="text_block-59-11" class="ct-text-block">You can create extra product IDs that can be used to unlock different sets of products</div>
+                            </div>
                         </div>
                         <div id="div_block-25-11" class="ct-div-block">
                             <div id="div_block-35-11" class="ct-div-block">
