@@ -573,6 +573,17 @@ codesign --sign "Developer ID Application: [name] [ID] *OR* SHA-1 hash" \\
                         </p>
                     </AccordionContent>
                 </AccordionItem>
+                <AccordionItem value="5">
+                    <AccordionTrigger>What needs to be added to my Privacy Policy?</AccordionTrigger>
+                    <AccordionContent>
+                        If you opt in to sharing customer data with Software Licensor, you should 
+                        inform your users that you are sharing their name and email address with 
+                        Software Licensor. You do not have to share that information. Software 
+                        Licensor may also receive computer names, hardware statistics, and MAC 
+                        addresses. MAC addresses are sometimes used to generate machine IDs, so we 
+                        may collect MAC addresses in the license activation process.
+                    </AccordionContent>
+                </AccordionItem>
             </Accordion>
         </CardContent>
     </Card>
