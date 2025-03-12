@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from './ui/toast';
 export function debugLog(text) {
-    if (true) {
+    if (false) {
         console.dir(text);
     }
 }
