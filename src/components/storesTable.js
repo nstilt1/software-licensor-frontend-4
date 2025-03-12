@@ -67,6 +67,11 @@ const StoresTable = (user) => {
 
     const [createStoreDialogOpen, setCreateStoreDialogOpen] = useState(false);
 
+    // update_version parameters
+    const [updateVersionStoreId, setUpdateVersionStoreId] = useState("");
+    const [updateVersionProductId, setUpdateVersionProductId] = useState("");
+    const [updateVersionNewVersion, setUpdateVersionNewVersion] = useState("");
+
     const now = () => {
         const time = Math.floor(Date.now() / 1000);
         return time;
@@ -164,6 +169,45 @@ const StoresTable = (user) => {
         }
         setCreateStoreDialogOpen(false);
     }
+
+    const updateVersion = async (event) => {
+        event.preventDefault();
+
+        try {
+            const reqData = {
+                store_id: updateVersionStoreId,
+                product_id: updateVersionProductId,
+                new_version: updateVersionNewVersion
+            };
+
+            let json = await packRequest(reqData, "https://5bl6z5xif1.execute-api.us-east-1.amazonaws.com/v1/update_version");
+
+            const newVersion = json.version;
+
+            // update product version
+            setStoreData(prevStoreData => {
+                const updatedStoreData = [...prevStoreData];
+                // find store by store id
+                const store = updatedStoreData.find(store => store[updateVersionStoreId]);
+                if (store) {
+                    // find product by product id
+                    const product = store[updateVersionStoreId].products.find(product => product.id === updateVersionProductId);
+                    if (product) {
+                        product.version = newVersion;
+                    }
+                }
+                return updatedStoreData;
+            })
+        } catch (error) {
+            console.error("Error updating the version: ", {
+                message: error.message,
+                stack: error.stack,
+                cause: error.cause
+            });
+        }
+        setUpdateVersionDialogOpen(false);
+    }
+
 
     const updateSettings = async (storeIdInput) => {
         try {
@@ -293,6 +337,11 @@ const StoresTable = (user) => {
                                             SLFH={SLFH} setSLFH={setSLFH}
                                             TLED={TLED} setTLED={setTLED}
                                             TLFH={TLFH} setTLFH={setTLFH}
+                                            updateVersion={updateVersion}
+                                            updateVersionNewVersion={updateVersionNewVersion}
+                                            setUpdateVersionStoreId={setUpdateVersionStoreId}
+                                            setUpdateVersionProductId={setUpdateVersionProductId}
+                                            setUpdateVersionNewVersion={setUpdateVersionNewVersion}
                                         />
                                     </TableCell>
                                     <TableCell>{itemData?.linked ? "true" : "false"}</TableCell>

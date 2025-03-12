@@ -79,12 +79,20 @@ const APIKeyDisplay = ({
     SLELH, setSLELH,
     SLFH, setSLFH,
     TLED, setTLED,
-    TLFH, setTLFH
+    TLFH, setTLFH,
+    updateVersion,
+    updateVersionNewVersion,
+    setUpdateVersionStoreId,
+    setUpdateVersionProductId,
+    setUpdateVersionNewVersion
 }) => {
     const [open, setOpen] = useState(false);
     const [productsOpen, setProductsOpen] = useState(false);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [codeDialogOpen, setCodeDialogOpen] = useState(false);
+    const [updateVersionDialogOpen, setUpdateVersionDialogOpen] = useState(false);
+    const [currentVersion, setCurrentVersion] = useState("");
+
   const { toast } = useToast();
 
   const handleCheckboxChange = (product, checked) => {
@@ -356,10 +364,12 @@ const APIKeyDisplay = ({
                             <TableRow key="0">
                                 <TableHead>Select</TableHead>
                                 <TableHead className="w-[100px]">Product ID</TableHead>
+                                <TableHead>Product Name</TableHead>
                                 <TableHead>Product Public Key</TableHead>
                                 <TableHead>Offline Allowed?</TableHead>
                                 <TableHead>Max Machines per License</TableHead>
                                 <TableHead>Version</TableHead>
+                                <TableHead>Update Version</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -374,10 +384,18 @@ const APIKeyDisplay = ({
                                             />
                                         </TableCell>
                                         <TableCell className="font-medium"><LongCopyableTextField textToCopy={product?.id} name="Product ID" /></TableCell>
+                                        <TableCell>{product?.name}</TableCell>
                                         <TableCell><LongCopyableTextField textToCopy={product?.pubkey} name="public key" /></TableCell>
                                         <TableCell>{product?.offline_allowed ? "true" : "false"}</TableCell>
                                         <TableCell>{product?.max_machines_per_license}</TableCell>
                                         <TableCell>{product?.version}</TableCell>
+                                        <TableCell><Button type="submit" onClick={(event) => {
+                                            event.preventDefault();
+                                            setUpdateVersionDialogOpen(true);
+                                            setUpdateVersionStoreId(apiKey);
+                                            setUpdateVersionProductId(product?.id);
+                                            setCurrentVersion(product?.version);
+                                        }}>Update Version</Button></TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -407,6 +425,55 @@ const APIKeyDisplay = ({
         apiKey={apiKey}
         selectedProducts={selectedProducts}
     />
+    {updateVersionDialogOpen && (<Dialog open={updateVersionDialogOpen} onOpenChange={setUpdateVersionDialogOpen}>
+        <DialogPortal>
+            <DialogOverlay />
+            <DialogContent className="max-w-[800px] md:max-w[800px]">
+                <DialogHeader>
+                    <DialogTitle>Update Version</DialogTitle>
+                    <DialogDescription>
+                        Update the version of your software here.
+                    </DialogDescription>
+                </DialogHeader>
+                <Table>
+                    <TableHeader>
+                        <TableRow key="0">
+                            <TableHead>Current Version</TableHead>
+                            <TableHead>New Version</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        <TableRow key="1">
+                            <TableCell>{currentVersion}</TableCell>
+                            <TableCell>
+                                <input
+                                    type="text"
+                                    className="appearance-none border-none text-sm leading-tight rounded-md w-full"
+                                    placeholder={currentVersion}
+                                    value={updateVersionNewVersion}
+                                    onChange={(e) => setUpdateVersionNewVersion(e.target.value)}
+                                />
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                    <DialogFooter>
+                        <Button type="submit" onClick={(event) => {
+                            event.preventDefault();
+                            setUpdateVersionDialogOpen(false);
+                        }}>Close</Button>
+                        <Button
+                            type="submit"
+                            disabled={updateVersionNewVersion.length === 0}
+                            onClick={async (event) => {
+                                event.preventDefault();
+                                await updateVersion();
+                                setUpdateVersionDialogOpen(false);
+                            }}>Update Version</Button>
+                    </DialogFooter>
+                </Table>
+            </DialogContent>
+        </DialogPortal>
+    </Dialog>)}
     </>
   );
 };
