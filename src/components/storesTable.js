@@ -171,8 +171,6 @@ const StoresTable = (user) => {
     }
 
     const updateVersion = async (event) => {
-        event.preventDefault();
-
         try {
             const reqData = {
                 store_id: updateVersionStoreId,
