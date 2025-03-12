@@ -71,6 +71,7 @@ const StoresTable = (user) => {
     const [updateVersionStoreId, setUpdateVersionStoreId] = useState("");
     const [updateVersionProductId, setUpdateVersionProductId] = useState("");
     const [updateVersionNewVersion, setUpdateVersionNewVersion] = useState("");
+    const [updateVersionDialogOpen, setUpdateVersionDialogOpen] = useState(false);
 
     const now = () => {
         const time = Math.floor(Date.now() / 1000);
@@ -340,6 +341,8 @@ const StoresTable = (user) => {
                                             setUpdateVersionStoreId={setUpdateVersionStoreId}
                                             setUpdateVersionProductId={setUpdateVersionProductId}
                                             setUpdateVersionNewVersion={setUpdateVersionNewVersion}
+                                            updateVersionDialogOpen={updateVersionDialogOpen}
+                                            setUpdateVersionDialogOpen={setUpdateVersionDialogOpen}
                                         />
                                     </TableCell>
                                     <TableCell>{itemData?.linked ? "true" : "false"}</TableCell>

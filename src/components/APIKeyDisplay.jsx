@@ -84,13 +84,14 @@ const APIKeyDisplay = ({
     updateVersionNewVersion,
     setUpdateVersionStoreId,
     setUpdateVersionProductId,
-    setUpdateVersionNewVersion
+    setUpdateVersionNewVersion,
+    updateVersionDialogOpen,
+    setUpdateVersionDialogOpen
 }) => {
     const [open, setOpen] = useState(false);
     const [productsOpen, setProductsOpen] = useState(false);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [codeDialogOpen, setCodeDialogOpen] = useState(false);
-    const [updateVersionDialogOpen, setUpdateVersionDialogOpen] = useState(false);
     const [currentVersion, setCurrentVersion] = useState("");
 
   const { toast } = useToast();
