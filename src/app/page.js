@@ -1,60 +1,159 @@
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Image from "next/image";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <section id="section-2-11" class=" ct-section">
-            <div class="ct-section-inner-wrap">
-                <h1 id="headline-3-11" class="ct-headline">Looking for an open source licensing service?</h1>
-                <div id="_rich_text-11-11" class="oxy-rich-text">
-                    <p>
-                        We have you covered. All of the source code for Software Licensor is available on <a href="https://github.com/nstilt1" target="_blank" rel="noopener">GitHub</a>
-                        . The service is hosted serverlessly with AWS API Gateway, Lambda, and DynamoDB. The backend uses a custom cryptographic protocol with standard cryptographic primitives.
-                    </p>
-                </div>
-                <div id="div_block-19-11" class="ct-div-block">
-                    <h1 id="headline-20-11" class="ct-headline">What can be done with Software Licensor?</h1>
-                    <div id="text_block-56-11" class="ct-text-block">Software Licensor is capable of providing Trial Licenses and Perpetual Licenses for software.</div>
-                    <div id="new_columns-23-11" class="ct-new-columns">
-                        <div id="div_block-24-11" class="ct-div-block">
-                            <div id="div_block-30-11" class="ct-div-block">
-                                <h3 id="headline-31-11" class="ct-headline">Sell unlimited licenses</h3>
-                                <div id="text_block-33-11" class="ct-text-block">There is no limit for how many licenses you can sell</div>
-                            </div>
-                            <div id="div_block-41-11" class="ct-div-block">
-                                <h3 id="headline-42-11" class="ct-headline">Compatible with WordPress</h3>
-                                <div id="text_block-43-11" class="ct-text-block">We have a WooCommerce plugin that interfaces with our API</div>
-                            </div>
-                            <div id="div_block-57-11" class="ct-div-block">
-                                <h3 id="headline-58-11" class="ct-headline">Sell bundles</h3>
-                                <div id="text_block-59-11" class="ct-text-block">You can create extra product IDs that can be used to unlock different sets of products</div>
-                            </div>
-                        </div>
-                        <div id="div_block-25-11" class="ct-div-block">
-                            <div id="div_block-35-11" class="ct-div-block">
-                                <h3 id="headline-36-11" class="ct-headline">Have unlimited products</h3>
-                                <div id="text_block-37-11" class="ct-text-block">There is no limit on how many products you can have</div>
-                            </div>
-                            <div id="div_block-46-11" class="ct-div-block">
-                                <h3 id="headline-47-11" class="ct-headline">Client-side language compatibility</h3>
-                                <div id="text_block-48-11" class="ct-text-block">We have a Rust static library that can be called from many languages, and a C++ JUCE library</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="div_block-16-11" class="ct-div-block">
-                    <h1 id="headline-13-11" class="ct-headline">What can&apos;t be done with Software Licensor?</h1>
-                    <div id="_rich_text-18-11" class="oxy-rich-text">
-                        <p>Multiple stores cannot sell licenses for the same product, although the client-side code could be adjusted to use multiple Store IDs.</p>
-                        <p>Offline license activations and subscription licenses are not currently implemented. Not to worry, offline license activation and subscriptions are already implemented in the API&apos;s backend, but they would need to be implemented in the WordPress Plugin and in the client-side code (except for subscriptions; subscriptions only need to be implemented in the WordPress Plugin).</p>
-                        <p>
-                            Subscriptions aren&apos;t fully implemented because WooCommerce Subscriptions requires a subscription. Offline license activations aren&apos;t implemented because they require a new form to show up on your website, and a new component in the C++ code. More information about offline license activations can be found <a href="https://github.com/nstilt1/software-licensor-rust/issues/43">here</a>
-                            .
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main className="min-h-screen flex flex-col bg-background text-foreground">
+      {/* HERO */}
+      <section className="w-full py-24 bg-gradient-to-b from-zinc-900 to-zinc-800 text-white">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Free & Open Source Software Licensing Service
+          </h1>
+          <p className="mt-6 text-lg md:text-xl text-zinc-300 max-w-3xl mx-auto">
+            A fully open, serverless licensing backend powered by AWS Lambda, API Gateway, and DynamoDB —
+            secured with a custom cryptographic protocol built on standard primitives.
+          </p>
+
+          <div className="mt-8 flex justify-center gap-4">
+            <Button asChild size="lg">
+              <a href="https://github.com/nstilt1" target="_blank">View on GitHub</a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <a href="#features">Explore Features</a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT IT DOES */}
+      <section id="features" className="py-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-12">
+            What can Software Licensor do?
+          </h2>
+
+          <p className="text-center text-lg text-muted-foreground mb-12">
+            Software Licensor supports Trial Licenses and Perpetual Licenses for any software product.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Sell Unlimited Licenses</CardTitle>
+              </CardHeader>
+              <CardContent>
+                There is no limit to how many licenses you can issue or validate.
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Unlimited Products</CardTitle>
+              </CardHeader>
+              <CardContent>
+                Create as many product IDs as you need — no restrictions.
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>WooCommerce Integration</CardTitle>
+              </CardHeader>
+              <CardContent>
+                A WordPress plugin connects WooCommerce directly to the licensing API.
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Client‑Side Language Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                Includes a Rust static library usable from many languages, plus a C++ JUCE library.
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Sell Bundles</CardTitle>
+              </CardHeader>
+              <CardContent>
+                Create bundle product IDs that unlock multiple products at once.
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* LIMITATIONS */}
+      <section className="py-20 bg-muted/40">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10">
+            What can’t Software Licensor do?
+          </h2>
+
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Multiple stores selling the same product</AccordionTrigger>
+              <AccordionContent>
+                Multiple stores cannot sell licenses for the same product unless the client-side code
+                is modified to support multiple Store IDs.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2">
+              <AccordionTrigger>Offline license activations</AccordionTrigger>
+              <AccordionContent>
+                Offline activations exist in the backend but require UI work in the WordPress plugin
+                and additional client-side components (especially for C++).
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Subscription licenses</AccordionTrigger>
+              <AccordionContent>
+                Subscription support exists in the backend but needs implementation in the WordPress plugin.
+                WooCommerce Subscriptions also requires a paid subscription.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4">
+              <AccordionTrigger>More info on offline activation</AccordionTrigger>
+              <AccordionContent>
+                Details are available here:{" "}
+                <a
+                  href="https://github.com/nstilt1/software-licensor-rust/issues/43"
+                  className="underline"
+                  target="_blank"
+                >
+                  GitHub Issue #43
+                </a>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
+
+      {/* OPEN SOURCE + ARCHITECTURE */}
+      <section className="py-20">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-semibold mb-6">
+            100% Open Source & Serverless
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Every part of Software Licensor is open source and available on GitHub.  
+            The backend is fully serverless, using AWS Lambda, API Gateway, and DynamoDB for
+            scalability and reliability without operational overhead.
+          </p>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
   );
 }
